@@ -4,7 +4,7 @@ import * as React from 'react'
 import Link from 'next/link'
 
 import { cn } from '@/lib/utils'
-// import { Icons } from '@/components/icons'
+
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -85,6 +85,17 @@ export function Navigation() {
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link
+                href='/shop'
+                legacyBehavior
+                passHref
+              >
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  Shop
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
 
             {/* <NavigationMenuItem>
               <NavigationMenuTrigger>Blog</NavigationMenuTrigger>
@@ -97,7 +108,6 @@ export function Navigation() {
                         href='/blog'
                       >
                         Logo icon
-                        <Icons.logo className='h-6 w-6' />
                         <div className='mb-2 mt-4 text-lg font-medium'>
                           shadcn/ui
                         </div>
@@ -109,14 +119,14 @@ export function Navigation() {
                     </NavigationMenuLink>
                   </li>
                   <ListItem
-                    href='/docs'
-                    title='Introduction'
+                    href='/blog/categories/productivity'
+                    title='Productivity'
                   >
                     Re-usable components built using Radix UI and Tailwind CSS.
                   </ListItem>
                   <ListItem
-                    href='/docs/installation'
-                    title='Installation'
+                    href='/blog/categories/templates'
+                    title='Templates'
                   >
                     How to install dependencies and structure your app.
                   </ListItem>
@@ -128,9 +138,9 @@ export function Navigation() {
                   </ListItem>
                 </ul>
               </NavigationMenuContent>
-            </NavigationMenuItem>
-             */}
-            <NavigationMenuItem>
+            </NavigationMenuItem> */}
+
+            {/* <NavigationMenuItem>
               <NavigationMenuTrigger>Shop</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className='grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] '>
@@ -145,7 +155,7 @@ export function Navigation() {
                   ))}
                 </ul>
               </NavigationMenuContent>
-            </NavigationMenuItem>
+            </NavigationMenuItem> */}
             <NavigationMenuItem>
               <Link
                 href='/about'
