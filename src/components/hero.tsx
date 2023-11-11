@@ -10,7 +10,6 @@ async function getData() {
 
 export default async function Hero() {
   const data = await getData()
-  console.log(data)
   return (
     <Container>
       <div className='flex flex-col justify-center pt-[12rem]'>
