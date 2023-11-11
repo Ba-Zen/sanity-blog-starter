@@ -28,7 +28,7 @@ export default async function CategoryPage({
     <div>
       {params.category}
       {data.map((product, i) => (
-        <h1>{product.title}</h1>
+        <h1 key={i}>{product.title}</h1>
       ))}
     </div>
   )
