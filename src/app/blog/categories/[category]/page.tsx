@@ -1,60 +1,59 @@
-import { client, urlFor } from '@/lib/sanity'
-import { Article } from '../../../../../interface'
-import { notFound } from 'next/navigation'
-import Container from '@/components/container'
-import Image from 'next/image'
-import { SanityDocument, groq } from 'next-sanity'
+import { client, urlFor } from "@/lib/sanity";
+import { Article } from "../../../../../interface";
+import { notFound } from "next/navigation";
+import Container from "@/components/container";
+import Image from "next/image";
+import { SanityDocument, groq } from "next-sanity";
 
-export const articlesPathsQuery = groq`*[_type == "articles"][]{
-  "params": { "slug": slug.current }
-}`
+export const dynamicParams = false;
 
-// Prepare Next.js to know which routes already exist
-export async function generateStaticParams() {
-  const articles = await client.fetch(articlesPathsQuery)
+export const categoryiesQuery = groq`*[_type == "categories"].slug.current`;
 
-  // console.log('articles', articles)
-  return articles.map((a: any) => a.params)
-}
-
-async function getArticles(category: string) {
-  const query = `*[_type == 'articles' && category->title == "${category}"]{
+const articlesQuery = groq`*[_type == "articles" && category->title == $category]{
     _id,
     title,
     "category": category->title,
       "teaserImage": teaserImage.asset->url,
       "slug": slug.current,
   }
-`
+`;
 
-  const data = await client.fetch(query)
-  return data
+// Prepare Next.js to know which routes already exist
+export async function generateStaticParams() {
+  const categories = (await client.fetch(categoryiesQuery)) as string[];
+
+  console.log("categories", categories);
+  return categories.map((category) => ({ category }));
 }
 
-export default async function CategoryPage({ params }: { params: any }) {
-  const data: Article[] = await getArticles(params.category)
+async function getArticles(category: string) {
+  const data = await client.fetch(articlesQuery, { category });
+  return data as Article[];
+}
 
-  // console.log(data)
+export default async function CategoryPage({
+  params: { category },
+}: {
+  params: { category: string };
+}) {
+  const data = await getArticles(category);
+
+  console.log(category, data);
 
   return (
     <Container>
-      <h1 className='text-5xl first-letter:uppercase py-8'>
-        {params.category}
-      </h1>
+      <h1 className="text-5xl first-letter:uppercase py-8">{category}</h1>
       {data.length ? (
-        <div className=''>
-          <div className='grid grid-cols-3'>
+        <div className="">
+          <div className="grid grid-cols-3">
             {data.map((article, i) => (
-              <div
-                key={i}
-                className='px-6 py-8 border col-span-1'
-              >
+              <div key={i} className="px-6 py-8 border col-span-1">
                 <Image
                   src={urlFor(article.teaserImage).url()}
                   width={500}
                   height={500}
-                  alt='change me'
-                  className='aspect-square object-cover'
+                  alt="change me"
+                  className="aspect-square object-cover"
                 />
                 <h1>{article.title}</h1>
               </div>
@@ -62,12 +61,12 @@ export default async function CategoryPage({ params }: { params: any }) {
           </div>
         </div>
       ) : (
-        <div className='pt-8'>
+        <div className="pt-8">
           <p>No articles found in this category</p>
         </div>
       )}
     </Container>
-  )
+  );
 }
 
 // export const articlesQuery = groq`*[_type == "articles" && category->title == defined(category)]{
