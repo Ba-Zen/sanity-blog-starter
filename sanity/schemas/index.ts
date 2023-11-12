@@ -1,6 +1,7 @@
 import product from './product'
 import categories from './categories'
-import heroImages from './heroImages'
-const documents = [product, categories, heroImages]
+
+import articles from './articles'
+const documents = [product, categories, articles]
 
 export const schemaTypes = [...documents]

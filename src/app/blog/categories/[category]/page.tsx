@@ -1,56 +1,113 @@
 import { client, urlFor } from '@/lib/sanity'
-import { simplifiedProduct } from '../../../../../interface'
-import NotFound from '@/app/[404]/page'
+import { Article } from '../../../../../interface'
 import { notFound } from 'next/navigation'
 import Container from '@/components/container'
 import Image from 'next/image'
+import { SanityDocument, groq } from 'next-sanity'
 
-async function getData(category: string) {
-  const query = `*[_type == 'product' && category->title == "${category}"]{
+export const articlesPathsQuery = groq`*[_type == "articles"][]{
+  "params": { "slug": slug.current }
+}`
+
+// Prepare Next.js to know which routes already exist
+export async function generateStaticParams() {
+  const articles = await client.fetch(articlesPathsQuery)
+
+  // console.log('articles', articles)
+  return articles.map((a: any) => a.params)
+}
+
+async function getArticles(category: string) {
+  const query = `*[_type == 'articles' && category->title == "${category}"]{
     _id,
-      "imageUrl": images[0].asset->url,
-      price,
-      title,
+    title,
+    "category": category->title,
+      "teaserImage": teaserImage.asset->url,
       "slug": slug.current,
-      "categoryName": category->title
-  }  
-  `
+  }
+`
 
   const data = await client.fetch(query)
   return data
 }
 
-export default async function CategoryPage({
-  params,
-}: {
-  params: { category: string }
-}) {
-  const data: simplifiedProduct[] = await getData(params.category)
+export default async function CategoryPage({ params }: { params: any }) {
+  const data: Article[] = await getArticles(params.category)
+
+  // console.log(data)
 
   return (
     <Container>
+      <h1 className='text-5xl first-letter:uppercase py-8'>
+        {params.category}
+      </h1>
       {data.length ? (
-        <div className='pt-8'>
-          <h1 className='text-5xl first-letter:uppercase pb-8'>
-            {params.category}
-          </h1>
+        <div className=''>
           <div className='grid grid-cols-3'>
-            {data.map((product, i) => (
-              <div className='px-6 py-8 border col-span-1'>
-                <h1 key={i}>{product.title}</h1>
-                {/* <Image
-                  src={urlFor(product.imageUrl).url()}
+            {data.map((article, i) => (
+              <div
+                key={i}
+                className='px-6 py-8 border col-span-1'
+              >
+                <Image
+                  src={urlFor(article.teaserImage).url()}
                   width={500}
                   height={500}
                   alt='change me'
-                /> */}
+                  className='aspect-square object-cover'
+                />
+                <h1>{article.title}</h1>
               </div>
             ))}
           </div>
         </div>
       ) : (
-        notFound()
+        <div className='pt-8'>
+          <p>No articles found in this category</p>
+        </div>
       )}
     </Container>
   )
 }
+
+// export const articlesQuery = groq`*[_type == "articles" && category->title == defined(category)]{
+//     _id,
+//     title,
+//     "category": category->title,
+//       "teaserImage": teaserImage.asset->url,
+//       "slug": slug.current,
+// }`
+
+// async function getSlugs(slug: string) {
+//   const query = `*[_type == 'articles']{
+//       "slug": slug.current,
+//   }
+// `
+
+//   const data = await client.fetch(query)
+//   console.log('data', data)
+//   return data
+// }
+
+// // Return a list of `params` to populate the [slug] dynamic segment
+// export async function generateStaticParams(category: string) {
+//   const query = `*[_type == 'articles' && category->title == "${category}"]{
+//     _id,
+//     title,
+//     "category": category->title,
+//       "teaserImage": teaserImage.asset->url,
+//       "slug": slug.current,
+//   }
+// `
+//   const articles = await client.fetch(query)
+//   return articles.map((article: Article) => ({
+//     slug: article.slug,
+//   }))
+// }
+
+// Multiple versions of this page will be statically generated
+// using the `params` returned by `generateStaticParams`
+// export default function Page({ params }) {
+//   const { slug } = params
+//   // ...
+// }

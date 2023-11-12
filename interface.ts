@@ -1,10 +1,9 @@
-export interface simplifiedProduct {
+export interface Article {
   _id: string
-  imageUrl: string
-  price: number
-  slug: string
-  categoryName: string
   title: string
+  category: string
+  teaserImage: string
+  slug: string
 }
 
 export interface fullProduct {
