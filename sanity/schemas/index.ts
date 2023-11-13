@@ -2,6 +2,9 @@ import product from './product'
 import categories from './categories'
 
 import articles from './articles'
-const documents = [product, categories, articles]
+import blockContent from './blockContent'
 
-export const schemaTypes = [...documents]
+const documents = [product, categories, articles]
+const objects = [blockContent]
+
+export const schemaTypes = [...documents, ...objects]

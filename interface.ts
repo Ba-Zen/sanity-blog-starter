@@ -3,6 +3,7 @@ export interface Article {
   title: string
   category: string
   teaserImage: string
+  body: string
   slug: {
     current: string
   }

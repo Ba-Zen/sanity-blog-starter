@@ -30,10 +30,9 @@ export default {
       description: 'Image teaser on home and blog page on a news grid.',
     },
     {
-      name: 'heroImage',
-      title: 'Hero Image',
-      type: 'image',
-      description: 'Image (ideally landscape) to be used on the article page.',
+      name: 'body',
+      title: 'Body',
+      type: 'blockContent',
     },
     {
       name: 'introText',
