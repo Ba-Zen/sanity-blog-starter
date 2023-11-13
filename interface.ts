@@ -3,7 +3,9 @@ export interface Article {
   title: string
   category: string
   teaserImage: string
-  slug: string
+  slug: {
+    current: string
+  }
 }
 
 export interface fullProduct {

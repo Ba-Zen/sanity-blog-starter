@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import Container from '@/components/container'
 import Image from 'next/image'
 import { groq } from 'next-sanity'
+import Link from 'next/link'
 
 const categoryTitlesQuery = groq`*[_type == "categories"].title`
 export async function generateStaticParams() {
@@ -25,6 +26,7 @@ async function getArticles(category: string) {
 export const dynamicParams = false
 export default async function CategoryPage({ params }: { params: any }) {
   const data: Article[] = await getArticles(params.category)
+  console.log('data', data)
   return (
     <Container>
       <h1 className='text-5xl first-letter:uppercase py-8'>
@@ -34,7 +36,8 @@ export default async function CategoryPage({ params }: { params: any }) {
       {data.length > 0 ? (
         <div className='grid grid-cols-3'>
           {data.map((article, i) => (
-            <div
+            <Link
+              href={`/blog/${article.slug}`}
               key={i}
               className='px-6 py-8 border col-span-1'
             >
@@ -46,7 +49,7 @@ export default async function CategoryPage({ params }: { params: any }) {
                 className='aspect-square object-cover'
               />
               <h1>{article.title}</h1>
-            </div>
+            </Link>
           ))}
         </div>
       ) : (
