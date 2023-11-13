@@ -14,6 +14,11 @@ export default {
       type: 'contentSimple',
     },
     {
+      title: 'Intro Content Text',
+      name: 'introContentText',
+      type: 'contentSimple',
+    },
+    {
       title: 'Intro Content Images',
       name: 'introContentImages',
       type: 'array',

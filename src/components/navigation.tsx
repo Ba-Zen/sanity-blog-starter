@@ -56,12 +56,9 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function Navigation() {
   return (
-    <div className='flex flex-col'>
-      <div className='bg-black text-white text-center py-4 mb-2'>
-        Announcement text
-      </div>
-      <Container>
-        <NavigationMenu className=''>
+    <div className='flex flex-col fixed w-full bg-white z-[100]'>
+      <div className='flex justify-center py-4'>
+        <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
               <Link
@@ -169,7 +166,7 @@ export function Navigation() {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
-      </Container>
+      </div>
     </div>
   )
 }
