@@ -54,6 +54,33 @@
     @apply border-border;
   }
   body {
-    @apply text-primary overscroll-none bg-black/10;
+    @apply text-primary overscroll-none;
+  }
+}
+
+.embla {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+}
+
+.embla__slide {
+  flex: 0 0 90%;
+  min-width: 0;
+}
+
+@screen lg {
+  .embla__slide {
+    flex: 0 0 40%;
+    min-width: 0;
+  }
+}
+
+@screen 2xl {
+  .embla__slide {
+    flex: 0 0 37%;
+    min-width: 0;
   }
 }

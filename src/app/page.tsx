@@ -5,14 +5,20 @@ import { client, urlFor } from '@/lib/sanity'
 import { PortableText } from '@portabletext/react'
 import SanityImageScale from '@/components/sanity-image-scale'
 import PageWrapper from '@/components/page-wrapper'
+import HomeTicker from '@/components/home-ticker'
+import ArticleCarousel from '@/components/articleCarousel'
 
 const homeQuery = groq`*[_type == 'home'][0]{
 _id,title, introContentHeading, introContentText, introContentImages, textTicker1Words, textTicker2Words
 }`
+const articlesQuery = groq`*[_type == 'articles']{
+_id,title, teaserImage, "slug": slug.current
+}`
 
 export default async function Home() {
   const home = await client.fetch(homeQuery)
-  console.log(home)
+  const articles = await client.fetch(articlesQuery)
+  console.log(articles)
   return (
     <PageWrapper>
       <div className='overflow-hidden flex items-center justify-center relative lg:sticky lg:top-0 h-screen'>
@@ -114,6 +120,12 @@ export default async function Home() {
               />
             </div>
           </div>
+
+          {/* <HomeTicker
+            textTicker1Words={home.textTicker1Words}
+            textTicker2Words={home.textTicker2Words}
+          /> */}
+          <ArticleCarousel items={articles} />
         </article>
       </main>
     </PageWrapper>
