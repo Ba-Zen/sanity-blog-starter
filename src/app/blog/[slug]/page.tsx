@@ -34,8 +34,9 @@ export default async function BlogSlug({ params: { slug } }: any) {
 
   return (
     <Container>
-      <h1>{article.title}</h1>
-      {/* Render other parts of the article as needed */}
+      <div className='pt-12 lg:pt-[4rem]'>
+        <h1>{article.title}</h1>
+      </div>
     </Container>
   )
 }

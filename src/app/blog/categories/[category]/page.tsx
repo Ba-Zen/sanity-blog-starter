@@ -3,8 +3,14 @@ import { Article } from '../../../../../interface'
 import { notFound } from 'next/navigation'
 import Container from '@/components/container'
 import Image from 'next/image'
-import { groq } from 'next-sanity'
+import { SanityDocument, groq } from 'next-sanity'
 import Link from 'next/link'
+
+async function getCats() {
+  const query = "*[_type == 'categories']"
+  const data = await client.fetch(query)
+  return data
+}
 
 const categoryTitlesQuery = groq`*[_type == "categories"].title`
 export async function generateStaticParams() {
@@ -26,9 +32,28 @@ async function getArticles(category: string) {
 export const dynamicParams = false
 export default async function CategoryPage({ params }: { params: any }) {
   const data: Article[] = await getArticles(params.category)
-  console.log('data', data)
+  // console.log('data', data)
+  const cats = await getCats()
+
   return (
     <Container>
+      <div className='flex space-x-4 justify-center pt-20 lg:pt-[8rem]'>
+        <Link
+          href={`/blog`}
+          className='first-letter:uppercase'
+        >
+          All
+        </Link>
+        {cats.map((cat: SanityDocument, i: number) => (
+          <Link
+            key={i}
+            href={`/blog/categories/${cat.slug.current}`}
+            className='first-letter:uppercase'
+          >
+            {cat.title}
+          </Link>
+        ))}
+      </div>
       <h1 className='text-5xl first-letter:uppercase py-8'>
         {params.category}
       </h1>

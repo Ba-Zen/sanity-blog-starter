@@ -33,7 +33,7 @@ export default async function RootLayout({
 
   return (
     <>
-      <div className='flex space-x-4 justify-center pt-20 lg:pt-[12rem]'>
+      {/* <div className='flex space-x-4 justify-center pt-20 lg:pt-[8rem]'>
         <Link
           href={`/blog`}
           className='first-letter:uppercase'
@@ -49,7 +49,7 @@ export default async function RootLayout({
             {cat.title}
           </Link>
         ))}
-      </div>
+      </div> */}
       {children}
     </>
   )

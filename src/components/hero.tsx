@@ -16,13 +16,13 @@ export default async function Hero() {
         <p className=''>Starter blog</p>
         <h1 className='text-7xl'>Home Page</h1>
         <div className='w-full lg:w-2/3 ml-auto'>
-          <Image
+          {/* <Image
             src={urlFor(data.image1).url()}
             width={500}
             height={500}
             alt='change me'
             className='h-full w-full object-cover object-center'
-          />
+          /> */}
         </div>
       </div>
     </Container>
