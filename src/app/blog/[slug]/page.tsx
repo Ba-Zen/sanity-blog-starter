@@ -37,8 +37,8 @@ export default async function BlogSlug({ params: { slug } }: any) {
   return (
     <Container>
       <div className='pt-12 lg:pt-[4rem]'>
-        <div className='flex flex-col items-center border border-red-500'>
-          <div className='flex flex-col items-center w-full border border-green-500 font-semibold pb-12 md:pb-16'>
+        <div className='flex flex-col items-center'>
+          <div className='flex flex-col items-center w-full font-semibold pb-12 md:pb-16'>
             <div className='flex gap-2 pb-4 lg:pb-16 text-sm uppercase'>
               <Link href={`/blog`}>Blog</Link>/
               <Link href={`/blog/categories/${article.category}`}>

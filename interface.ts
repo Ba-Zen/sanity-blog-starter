@@ -2,6 +2,7 @@ export interface Article {
   _id: string
   title: string
   category: string
+  introText: string
   teaserImage: string
   body: string
   slug: {

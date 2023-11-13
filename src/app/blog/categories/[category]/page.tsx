@@ -37,7 +37,10 @@ export default async function CategoryPage({ params }: { params: any }) {
 
   return (
     <Container>
-      <div className='flex space-x-4 justify-center pt-20 lg:pt-[8rem]'>
+      <h1 className='text-5xl first-letter:uppercase  font-semibold text-center  pt-20 lg:pt-[8rem]'>
+        {params.category}
+      </h1>
+      <div className='flex space-x-4 justify-center pt-8 md:pb-16'>
         <Link
           href={`/blog`}
           className='first-letter:uppercase'
@@ -54,12 +57,9 @@ export default async function CategoryPage({ params }: { params: any }) {
           </Link>
         ))}
       </div>
-      <h1 className='text-5xl first-letter:uppercase py-8'>
-        {params.category}
-      </h1>
 
       {data.length > 0 ? (
-        <div className='grid grid-cols-3'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
           {data.map((article, i) => (
             <Link
               href={`/blog/${article.slug}`}
@@ -71,9 +71,10 @@ export default async function CategoryPage({ params }: { params: any }) {
                 width={500}
                 height={500}
                 alt='change me'
-                className='aspect-square object-cover'
+                className='aspect-square object-cover rounded-md'
               />
-              <h1>{article.title}</h1>
+              <h3 className='text-xl/5 font-semibold py-4'>{article.title}</h3>
+              <p>{article.introText}</p>
             </Link>
           ))}
         </div>
