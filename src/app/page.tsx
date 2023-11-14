@@ -6,7 +6,7 @@ import { PortableText } from '@portabletext/react'
 import SanityImageScale from '@/components/sanity-image-scale'
 import PageWrapper from '@/components/page-wrapper'
 import HomeTicker from '@/components/home-ticker'
-import ArticleCarousel from '@/components/articleCarousel'
+import ArticleCarousel from '@/components/article-carousel'
 
 const homeQuery = groq`*[_type == 'home'][0]{
 _id,title, introContentHeading, introContentText, introContentImages, textTicker1Words, textTicker2Words
@@ -125,7 +125,66 @@ export default async function Home() {
             textTicker1Words={home.textTicker1Words}
             textTicker2Words={home.textTicker2Words}
           /> */}
-          <ArticleCarousel items={articles} />
+          <div className='py-[5vw] pr-0 lg:pb-[10vw] bg-[#f3f3ed]'>
+            <div className='px-[5vw]'>
+              <h2 className='text-[9.5vw] leading-none lg:text-[6vw] lg:leading-[0.9] xl:text-[5.5vw] xl:leading-[0.9] max-w-[550px] lg:max-w-[100%] text-[#BDB800] mb-2'>
+                <span className='uppercase block'>Latest</span>
+                <span className='uppercase block'>News</span>
+              </h2>
+
+              {/* <IconSquiggleUnderline className="w-[50%] lg:w-[40%] xl:w-[33%] text-[#BDB800] lg:translate-x-[-2vw] mb-[4vw]" /> */}
+
+              <svg
+                className='w-[50%] lg:w-[40%] xl:w-[33%] text-[#BDB800] lg:translate-x-[-2vw] mb-6 lg:mb-[4vw]'
+                xmlns='http://www.w3.org/2000/svg'
+                viewBox='0 0 332.568 14.617'
+              >
+                <defs>
+                  <clipPath id='a'>
+                    <path
+                      fill='none'
+                      d='M0 14.617h332.568V0H0Z'
+                      data-name='Path 1260'
+                    />
+                  </clipPath>
+                </defs>
+                <g data-name='Group 565'>
+                  <g
+                    clip-path='url(#a)'
+                    data-name='Group 564'
+                  >
+                    <g data-name='Group 563'>
+                      <path
+                        fill='none'
+                        stroke='currentColor'
+                        stroke-linecap='round'
+                        stroke-width='2'
+                        d='M331.786.881S138.656 2.527 19.558 13.068c-31.5 2.787-13.2-4.083-15.959-4'
+                        data-name='Path 1259'
+                      />
+                    </g>
+                  </g>
+                </g>
+              </svg>
+
+              {/* <svg className="w-[50%] lg:w-[40%] xl:w-[33%] text-[#BDB800] lg:translate-x-[-2vw] mb-6 lg:mb-[4vw]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1054.61 41.078">
+                    <path  stroke="currentColor" fill="none" strokeLinecap="round" strokeWidth="5" d="M1052.091 2.519S439.691 7.143 62.04 36.748c-99.9 7.827-41.862-11.468-50.6-11.237" data-name="Path 1259"/>
+                  </svg> */}
+            </div>
+
+            <div className='mb-[8vw] lg:mb-[5vw]'>
+              <ArticleCarousel items={articles} />
+            </div>
+
+            {/* <div className='lg:text-center px-4 lg:px-0 pb-5 lg:pb-0'>
+                  <Button
+                    href='/news'
+                    label='View More News'
+                    className='block w-full lg:w-1/3'
+                    large
+                  />
+                </div> */}
+          </div>
         </article>
       </main>
     </PageWrapper>

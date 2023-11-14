@@ -84,18 +84,18 @@ export default function ArticleCarousel({ items }: Props) {
           {items.map((e: any, i: number) => {
             return (
               <div
-                className="embla__slide 'pr-3 lg:pr-5"
+                className="embla__slide 'pr-3 lg:pr-5 "
                 key={i}
               >
                 <Link href={`/blog/${e.slug}`}>
-                  <div className='w-full h-[60vw] lg:h-[25.5vw] 2xl:h-[23.5vw] mb-5 relative overflow-hidden'>
+                  <div className='w-full h-[60vw] group lg:h-[25.5vw] 2xl:h-[23.5vw] mb-5 relative overflow-hidden'>
                     {e.teaserImage && (
                       <Image
                         src={urlFor(e.teaserImage).url()}
                         alt='change me'
                         width={500}
                         height={500}
-                        className='scale-[1.0075] transition-transform ease-in-out duration-[1000ms] group-hover:scale-[1.065]'
+                        className='scale-[1] w-full h-full object-cover object-center transition-transform ease-in-out duration-[1000ms] group-hover:scale-[1.03]'
                       />
                     )}
                   </div>
