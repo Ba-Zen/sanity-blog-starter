@@ -1,8 +1,11 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Bricolage_Grotesque } from 'next/font/google'
 import './globals.css'
 import { Navigation } from '@/components/navigation'
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const bricolage = Bricolage_Grotesque({
+  subsets: ['latin'],
+})
 
 export const metadata: Metadata = {
   title: 'Sanity Blog Starter',
@@ -16,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
+      <body>
         <Navigation />
         {children}
       </body>

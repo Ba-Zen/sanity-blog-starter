@@ -56,8 +56,8 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function Navigation() {
   return (
-    <div className='flex flex-col fixed w-full bg-white z-[100]'>
-      <div className='flex justify-center py-4'>
+    <div className='flex flex-col fixed top h-14 md:h-[65px] lg:h-[115px] w-full bg-white border-b border-zinc-300 z-[100]'>
+      <div className='flex justify-center items-center h-full'>
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>

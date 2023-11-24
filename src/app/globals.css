@@ -55,6 +55,9 @@
   }
   body {
     @apply text-primary overscroll-none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: geometricPrecision;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
@@ -83,4 +86,18 @@
     flex: 0 0 37%;
     min-width: 0;
   }
+}
+
+.title-md {
+  font-size: 22px;
+  line-height: 1.27273em;
+}
+.title-lg {
+  font-size: 36px;
+  line-height: 1.11111em;
+}
+.desc {
+  font-size: 17px;
+  line-height: 1.41176em;
+  color: rgb(51, 51, 51);
 }

@@ -7,52 +7,97 @@ import SanityImageScale from '@/components/sanity-image-scale'
 import PageWrapper from '@/components/page-wrapper'
 import HomeTicker from '@/components/home-ticker'
 import ArticleCarousel from '@/components/article-carousel'
-
+import Link from 'next/link'
+import { bricolage } from './fonts'
 const homeQuery = groq`*[_type == 'home'][0]{
 _id,title, introContentHeading, introContentText, introContentImages, textTicker1Words, textTicker2Words
 }`
 const articlesQuery = groq`*[_type == 'articles']{
-_id,title, teaserImage, "slug": slug.current
+ ..., _id,title, teaserImage, "slug": slug.current, "category": category->title
 }`
 
 export default async function Home() {
   const home = await client.fetch(homeQuery)
   const articles = await client.fetch(articlesQuery)
-  console.log(articles)
+  // console.log(articles)
   return (
     <PageWrapper>
-      <div className='overflow-hidden flex items-center justify-center relative lg:sticky lg:top-0 h-screen'>
-        <div>
-          <span className='block text-[13.5vw] lg:text-[12vw] leading-[1.2] lg:leading-[1.2] overflow-hidden'>
-            <span className='block'>Making</span>
-          </span>
-          <span className='block text-[13.5vw] lg:text-[12vw] leading-[1.2] lg:leading-[1.2] overflow-hidden'>
-            <span className='block'>Boston</span>
-          </span>
-          <span className='block text-[13.5vw] lg:text-[12vw] leading-[1.2] lg:leading-[1.2] overflow-hidden font-display italic'>
-            <span className='block'>Thrive</span>
-          </span>
-
-          <div className='w-full'>
-            <svg
-              className='w-[60%] mx-auto mt-2 mb-8 lg:mb-0'
-              xmlns='http://www.w3.org/2000/svg'
-              viewBox='0 0 1054.61 41.078'
+      <div className='min-h-screen pt-14 md:pt-[65px] lg:md:pt-[164px]'>
+        <div className='px-5 mx-auto md:max-w-[83%] lg:max-w-[1220px] pb-[20px] md:pb-[30px]'>
+          <h1
+            className={`${bricolage.className} text-[32px] md:text-[44px] leading-[1.12] md:leading-[1.09] uppercase pt-[20px] pb-[30px] md:pt-[30px] md:pb-[40px] text-center border-b border-zinc-200 mb-[15px]`}
+          >
+            Blog Title
+          </h1>
+          <div className='flex flex-col md:pt-[30px] lg:flex-row'>
+            <Link
+              href={`/blog/${articles[3].slug}`}
+              className='lg:w-[50%]'
             >
-              <path
-                stroke='currentColor'
-                fill='none'
-                strokeLinecap='round'
-                strokeWidth='5'
-                d='M1052.091 2.519S439.691 7.143 62.04 36.748c-99.9 7.827-41.862-11.468-50.6-11.237'
-                data-name='Path 1259'
-              />
-            </svg>
+              <div className=' bg-zinc-400 aspect-[12/9] overflow-hidden'>
+                <Image
+                  src={urlFor(articles[3].teaserImage).url()}
+                  alt='change me'
+                  width={500}
+                  height={500}
+                  className='h-full w-full object-cover object-center'
+                />
+              </div>
+            </Link>
+            <div className='mt-5 lg:w-[50%] lg:ml-[30px] flex flex-col'>
+              <Link
+                href={`/blog/categories/${articles[3].category}`}
+                className='text-rose-600 uppercase text-[11px] md:text-xs font-semibold lg:hover:underline'
+              >
+                {articles[3].category}
+              </Link>
+              <Link href={`/blog/${articles[3].slug}`}>
+                <h2
+                  className={`${bricolage.className} text-[22px] leading-[1.18] font-semibold mt-2.5 md:mt-[20px] mb-4 md:mb-5 md:text-[40px] md:leading-[1.1] lg:hover:underline`}
+                >
+                  {articles[3].title}
+                </h2>
+              </Link>
+              <p className='text-[19px] leading-[1.32] md:text-[20px] md:leading-[1.3]'>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
+                expedita magnam omnis tempore ratione delectus adipisci quos
+                minima cum sunt mollitia repudiandae.
+              </p>
+            </div>
           </div>
         </div>
       </div>
-
-      <main className='mt-[100vh] relative z-10 bg-white'>
+      {/* <div className='col-span-1 flex flex-col'>
+            {articles.map((e: any, i: number) => (
+              <Link
+                href={`/blog/${e.slug}`}
+                key={i}
+              >
+                <div className='border border-zinc-300'>
+                  <div className='flex px-4 py-3'>
+                    <div className='h-24 w-24 bg-zinc-400 mr-4'>
+                      {e.teaserImage && (
+                        <Image
+                          src={urlFor(e.teaserImage).url()}
+                          alt='change me'
+                          width={500}
+                          height={500}
+                          className='scale-[1] w-full h-full object-cover object-center transition-transform ease-in-out duration-[1000ms] group-hover:scale-[1.03]'
+                        />
+                      )}
+                    </div>
+                    <div className='flex flex-col'>
+                      <h3 className='title-md font-semibold'>{e.title}</h3>
+                      <p className='desc'>
+                        This is a description of the article.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div> */}
+      <main className='relative z-10 bg-white'>
         <article>
           <div className='p-[5vw] pt-8 lg:pr-0 pb-[7vw] mb-[10vw] lg:mb-[15vw] lg:pb-[33vw] lg:pt-[5vw] relative'>
             <div className='flex flex-wrap relative'>
@@ -150,15 +195,15 @@ export default async function Home() {
                 </defs>
                 <g data-name='Group 565'>
                   <g
-                    clip-path='url(#a)'
+                    clipPath='url(#a)'
                     data-name='Group 564'
                   >
                     <g data-name='Group 563'>
                       <path
                         fill='none'
                         stroke='currentColor'
-                        stroke-linecap='round'
-                        stroke-width='2'
+                        strokeLinecap='round'
+                        strokeWidth='2'
                         d='M331.786.881S138.656 2.527 19.558 13.068c-31.5 2.787-13.2-4.083-15.959-4'
                         data-name='Path 1259'
                       />
