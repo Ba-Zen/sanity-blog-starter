@@ -109,13 +109,56 @@ export default async function Home() {
           </div>
         </div>
       </div>
-      <div className="mx-auto max-w-[1220px]">
+      <div className="mx-auto px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
         <h5
-          className={`${bricolage.className} border-y border-zinc-200 py-4 text-center text-[24px] leading-[1.5] md:py-6 md:text-[36px] md:leading-[1] lg:py-8`}
+          className={`${bricolage.className} mb-5 border-y border-zinc-200 py-4 text-center text-[24px] leading-[1.5] md:mb-[30px] md:py-6 md:text-[36px] md:leading-[1] lg:py-8`}
         >
           The Latest
         </h5>
+        <div className="flex flex-col gap-y-5 lg:px-[100px]">
+          {articles.slice(1, 4).map((e: any, i: number) => (
+            <div className="flex w-full">
+              <Link href={`/blog/${e.slug}`} key={i} className="w-[50%]">
+                <div className="aspect-[12/9] w-full overflow-hidden bg-zinc-400">
+                  {e.teaserImage && (
+                    <Image
+                      src={urlFor(e.teaserImage).url()}
+                      alt="change me"
+                      width={960}
+                      height={708}
+                      className="h-full w-full object-cover object-center"
+                    />
+                  )}
+                </div>
+              </Link>
+              <div className="ml-5 flex w-[100%] flex-col lg:mt-5">
+                <Link
+                  href={`/blog/categories/${e.category}`}
+                  className="text-[11px] font-semibold uppercase text-rose-600 md:text-xs lg:hover:underline"
+                >
+                  {e.category}
+                </Link>
+                <div className="">
+                  <Link href={`/blog/${e.slug}`}>
+                    <h3
+                      className={`${bricolage.className} mb-4 mt-2.5 text-[22px] font-semibold leading-[1.18] md:text-[24px] md:leading-[1.2] lg:text-[30px] lg:leading-[1.2] lg:hover:underline`}
+                    >
+                      {e.title}
+                    </h3>
+                    <p className="text-[19px] leading-[1.32] md:text-[20px] md:leading-[1.3]">
+                      This is a description of the article.
+                    </p>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
+      <div className="mx-auto px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
+        hola como estas
+      </div>
+
       {/* <main className="relative z-10 bg-white">
         <article>
           <div className="relative mb-[10vw] p-[5vw] pb-[7vw] pt-8 lg:mb-[15vw] lg:pb-[33vw] lg:pr-0 lg:pt-[5vw]">
