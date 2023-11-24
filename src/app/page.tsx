@@ -155,8 +155,12 @@ export default async function Home() {
           ))}
         </div>
       </div>
-      <div className="mx-auto px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
-        hola como estas
+      <div className="mx-auto my-20 px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
+        <h5
+          className={`${bricolage.className} mb-5 border-y border-zinc-200 bg-yellow-400 py-4 text-center text-[24px] leading-[1.5] md:mb-[30px] md:py-6 md:text-[36px] md:leading-[1] lg:py-8`}
+        >
+          Sign up for the latest news directly to your inbox
+        </h5>
       </div>
 
       {/* <main className="relative z-10 bg-white">
