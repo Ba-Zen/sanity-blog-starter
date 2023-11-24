@@ -63,65 +63,60 @@ export default async function Home() {
             </div>
           </div>
         </div>
-        <div className="mx-auto px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
-          <div className="flex flex-col lg:flex-row">
+        <div className="mx-auto overflow-hidden px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
+          <div className="flex flex-col gap-y-5 lg:flex-row lg:gap-x-5">
             {articles.slice(1, 4).map((e: any, i: number) => (
-              <Link href={`/blog/${e.slug}`} key={i}>
-                <div className="border border-zinc-300 ">
-                  <div className="flex flex-col">
-                    <div className=" aspect-[12/9] overflow-hidden bg-zinc-400">
-                      {e.teaserImage && (
-                        <Image
-                          src={urlFor(e.teaserImage).url()}
-                          alt="change me"
-                          width={500}
-                          height={500}
-                          className="h-full w-full object-cover object-center"
-                        />
-                      )}
-                    </div>
-                    <div className="flex flex-col">
-                      <h3 className={`${bricolage.className} `}>{e.title}</h3>
-                      <p className="desc">
+              <div className="flex w-full lg:w-1/3 lg:flex-col">
+                <Link
+                  href={`/blog/${e.slug}`}
+                  key={i}
+                  className="w-[50%] lg:w-full"
+                >
+                  <div className="aspect-[12/9] w-full overflow-hidden bg-zinc-400">
+                    {e.teaserImage && (
+                      <Image
+                        src={urlFor(e.teaserImage).url()}
+                        alt="change me"
+                        width={960}
+                        height={708}
+                        className="h-full w-full object-cover object-center"
+                      />
+                    )}
+                  </div>
+                </Link>
+                <div className="ml-5 flex w-[100%] flex-col lg:ml-0 lg:mt-5">
+                  <Link
+                    href={`/blog/categories/${e.category}`}
+                    className="text-[11px] font-semibold uppercase text-rose-600 md:text-xs lg:hover:underline"
+                  >
+                    {e.category}
+                  </Link>
+                  <div className="">
+                    <Link href={`/blog/${e.slug}`}>
+                      <h3
+                        className={`${bricolage.className} mb-4 mt-2.5 text-[22px] font-semibold leading-[1.18] md:text-[24px] md:leading-[1.2] lg:text-[30px] lg:leading-[1.2] lg:hover:underline`}
+                      >
+                        {e.title}
+                      </h3>
+                      <p className="text-[19px] leading-[1.32] md:text-[20px] md:leading-[1.3]">
                         This is a description of the article.
                       </p>
-                    </div>
+                    </Link>
                   </div>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         </div>
       </div>
-      {/* <div className='col-span-1 flex flex-col'>
-        {articles.map((e: any, i: number) => (
-          <Link
-            href={`/blog/${e.slug}`}
-            key={i}
-          >
-            <div className='border border-zinc-300'>
-              <div className='flex px-4 py-3'>
-                <div className='h-24 w-24 bg-zinc-400 mr-4'>
-                  {e.teaserImage && (
-                    <Image
-                      src={urlFor(e.teaserImage).url()}
-                      alt='change me'
-                      width={500}
-                      height={500}
-                      className='scale-[1] w-full h-full object-cover object-center transition-transform ease-in-out duration-[1000ms] group-hover:scale-[1.03]'
-                    />
-                  )}
-                </div>
-                <div className='flex flex-col'>
-                  <h3 className='title-md font-semibold'>{e.title}</h3>
-                  <p className='desc'>This is a description of the article.</p>
-                </div>
-              </div>
-            </div>
-          </Link>
-        ))}
-      </div> */}
-      <main className="relative z-10 bg-white">
+      <div className="mx-auto max-w-[1220px]">
+        <h5
+          className={`${bricolage.className} border-y border-zinc-200 py-4 text-center text-[24px] leading-[1.5] md:py-6 md:text-[36px] md:leading-[1] lg:py-8`}
+        >
+          The Latest
+        </h5>
+      </div>
+      {/* <main className="relative z-10 bg-white">
         <article>
           <div className="relative mb-[10vw] p-[5vw] pb-[7vw] pt-8 lg:mb-[15vw] lg:pb-[33vw] lg:pr-0 lg:pt-[5vw]">
             <div className="relative flex flex-wrap">
@@ -138,13 +133,6 @@ export default async function Home() {
                 )}
               </div>
               <div className="relative right-0 top-0 h-[100vw] w-full lg:absolute lg:h-[30vw] lg:w-[30vw]">
-                {/* <Image
-                  src={urlFor(home.introContentImages[2]).url()}
-                  width={500}
-                  height={500}
-                  alt='change me'
-                  className='object-cover rounded-md'
-                /> */}
                 <SanityImageScale
                   image={urlFor(home.introContentImages[2]).url()}
                   w={500}
@@ -156,13 +144,6 @@ export default async function Home() {
             </div>
 
             <div className="relative hidden w-full lg:absolute lg:bottom-[-8vw] lg:left-[30vw] lg:block lg:h-[26vw] lg:w-[38vw]">
-              {/* <Image
-                src={urlFor(home.introContentImages[1]).url()}
-                width={500}
-                height={500}
-                alt='change me'
-                className='object-cover rounded-md'
-              /> */}
               <SanityImageScale
                 image={urlFor(home.introContentImages[1]).url()}
                 w={500}
@@ -173,13 +154,6 @@ export default async function Home() {
             </div>
 
             <div className="relative hidden w-full lg:absolute lg:bottom-[8vw] lg:left-0 lg:block lg:h-[19vw] lg:w-[25vw]">
-              {/* <Image
-                src={urlFor(home.introContentImages[0]).url()}
-                width={500}
-                height={500}
-                alt='change me'
-                className='object-cover rounded-md'
-              /> */}
               <SanityImageScale
                 image={urlFor(home.introContentImages[0]).url()}
                 w={500}
@@ -190,18 +164,12 @@ export default async function Home() {
             </div>
           </div>
 
-          {/* <HomeTicker
-            textTicker1Words={home.textTicker1Words}
-            textTicker2Words={home.textTicker2Words}
-          /> */}
           <div className="bg-[#f3f3ed] py-[5vw] pr-0 lg:pb-[10vw]">
             <div className="px-[5vw]">
               <h2 className="mb-2 max-w-[550px] text-[9.5vw] leading-none text-[#BDB800] lg:max-w-[100%] lg:text-[6vw] lg:leading-[0.9] xl:text-[5.5vw] xl:leading-[0.9]">
                 <span className="block uppercase">Latest</span>
                 <span className="block uppercase">News</span>
               </h2>
-
-              {/* <IconSquiggleUnderline className="w-[50%] lg:w-[40%] xl:w-[33%] text-[#BDB800] lg:translate-x-[-2vw] mb-[4vw]" /> */}
 
               <svg
                 className="mb-6 w-[50%] text-[#BDB800] lg:mb-[4vw] lg:w-[40%] lg:translate-x-[-2vw] xl:w-[33%]"
@@ -232,27 +200,14 @@ export default async function Home() {
                   </g>
                 </g>
               </svg>
-
-              {/* <svg className="w-[50%] lg:w-[40%] xl:w-[33%] text-[#BDB800] lg:translate-x-[-2vw] mb-6 lg:mb-[4vw]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1054.61 41.078">
-                    <path  stroke="currentColor" fill="none" strokeLinecap="round" strokeWidth="5" d="M1052.091 2.519S439.691 7.143 62.04 36.748c-99.9 7.827-41.862-11.468-50.6-11.237" data-name="Path 1259"/>
-                  </svg> */}
             </div>
 
             <div className="mb-[8vw] lg:mb-[5vw]">
               <ArticleCarousel items={articles} />
             </div>
-
-            {/* <div className='lg:text-center px-4 lg:px-0 pb-5 lg:pb-0'>
-                  <Button
-                    href='/news'
-                    label='View More News'
-                    className='block w-full lg:w-1/3'
-                    large
-                  />
-                </div> */}
           </div>
         </article>
-      </main>
+      </main> */}
     </PageWrapper>
   );
 }
