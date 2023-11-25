@@ -165,46 +165,24 @@ export default async function Home() {
         <Email />
       </div>
 
-      {/* <main className="relative z-10 bg-white">
-        <article>
-          <div className="relative mb-[10vw] p-[5vw] pb-[7vw] pt-8 lg:mb-[15vw] lg:pb-[33vw] lg:pr-0 lg:pt-[5vw]">
-            <div className="relative flex flex-wrap">
-              <div className="mb-16 w-full lg:mb-0 lg:w-1/2">
-                {home.introContentHeading && (
-                  <h1 className="mb-5 max-w-[100%] text-[9.5vw] uppercase leading-none text-[#FF5F38] lg:mb-[2vw] lg:text-[4vw] lg:leading-[0.9] xl:leading-[0.9]">
-                    <PortableText value={home.introContentHeading} />
-                  </h1>
-                )}
-                {home.introContentText && (
-                  <div className="content mb-5 max-w-[530px] text-base leading-tight lg:mb-[3vw] lg:text-lg lg:leading-tight 2xl:max-w-[740px] 2xl:text-2xl 2xl:leading-tight">
-                    <PortableText value={home.introContentText} />
-                  </div>
-                )}
-              </div>
-              <div className="relative right-0 top-0 h-[100vw] w-full lg:absolute lg:h-[30vw] lg:w-[30vw]">
-                <SanityImageScale
-                  image={urlFor(home.introContentImages[2]).url()}
-                  w={500}
-                  h={500}
-                  alt="change me"
-                  p
-                />
-              </div>
+      <div className="mx-auto px-5 pb-[20px] md:max-w-[100%] md:pb-[30px] lg:max-w-[1220px]">
+        <div className="relative mb-[10vw] p-[5vw] pb-[7vw] pt-8 lg:mb-[15vw] lg:px-0 lg:pb-[33vw] lg:pr-0 lg:pt-[5vw]">
+          <div className="relative flex flex-wrap">
+            <div className="mb-16 w-full lg:mb-0 lg:w-1/2">
+              {home.introContentHeading && (
+                <h1 className="mb-5 max-w-[100%] text-[9.5vw] uppercase leading-none text-[#FF5F38] md:text-[7vw] lg:mb-[2vw] lg:text-[4vw] lg:leading-[0.9] xl:leading-[0.9]">
+                  <PortableText value={home.introContentHeading} />
+                </h1>
+              )}
+              {home.introContentText && (
+                <div className="content mb-5 max-w-[530px] text-base leading-tight lg:mb-[3vw] lg:text-lg lg:leading-tight 2xl:max-w-[740px] 2xl:text-2xl 2xl:leading-tight">
+                  <PortableText value={home.introContentText} />
+                </div>
+              )}
             </div>
-
-            <div className="relative hidden w-full lg:absolute lg:bottom-[-8vw] lg:left-[30vw] lg:block lg:h-[26vw] lg:w-[38vw]">
+            <div className="relative right-0 top-0 h-[100vw] w-full lg:absolute lg:h-[30vw] lg:w-[30vw]">
               <SanityImageScale
-                image={urlFor(home.introContentImages[1]).url()}
-                w={500}
-                h={500}
-                alt="change me"
-                p
-              />
-            </div>
-
-            <div className="relative hidden w-full lg:absolute lg:bottom-[8vw] lg:left-0 lg:block lg:h-[19vw] lg:w-[25vw]">
-              <SanityImageScale
-                image={urlFor(home.introContentImages[0]).url()}
+                image={urlFor(home.introContentImages[2]).url()}
                 w={500}
                 h={500}
                 alt="change me"
@@ -213,50 +191,31 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="bg-[#f3f3ed] py-[5vw] pr-0 lg:pb-[10vw]">
-            <div className="px-[5vw]">
-              <h2 className="mb-2 max-w-[550px] text-[9.5vw] leading-none text-[#BDB800] lg:max-w-[100%] lg:text-[6vw] lg:leading-[0.9] xl:text-[5.5vw] xl:leading-[0.9]">
-                <span className="block uppercase">Latest</span>
-                <span className="block uppercase">News</span>
-              </h2>
-
-              <svg
-                className="mb-6 w-[50%] text-[#BDB800] lg:mb-[4vw] lg:w-[40%] lg:translate-x-[-2vw] xl:w-[33%]"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 332.568 14.617"
-              >
-                <defs>
-                  <clipPath id="a">
-                    <path
-                      fill="none"
-                      d="M0 14.617h332.568V0H0Z"
-                      data-name="Path 1260"
-                    />
-                  </clipPath>
-                </defs>
-                <g data-name="Group 565">
-                  <g clipPath="url(#a)" data-name="Group 564">
-                    <g data-name="Group 563">
-                      <path
-                        fill="none"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeWidth="2"
-                        d="M331.786.881S138.656 2.527 19.558 13.068c-31.5 2.787-13.2-4.083-15.959-4"
-                        data-name="Path 1259"
-                      />
-                    </g>
-                  </g>
-                </g>
-              </svg>
-            </div>
-
-            <div className="mb-[8vw] lg:mb-[5vw]">
-              <ArticleCarousel items={articles} />
-            </div>
+          <div className="relative hidden w-full lg:absolute lg:bottom-[-8vw] lg:left-[30vw] lg:block lg:h-[26vw] lg:w-[38vw]">
+            <SanityImageScale
+              image={urlFor(home.introContentImages[1]).url()}
+              w={500}
+              h={500}
+              alt="change me"
+              p
+            />
           </div>
-        </article>
-      </main> */}
+
+          <div className="relative hidden w-full lg:absolute lg:bottom-[8vw] lg:left-0 lg:block lg:h-[19vw] lg:w-[25vw]">
+            <SanityImageScale
+              image={urlFor(home.introContentImages[0]).url()}
+              w={500}
+              h={500}
+              alt="change me"
+              p
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* <div className="mb-[8vw] lg:mb-[5vw]">
+        <ArticleCarousel items={articles} />
+      </div> */}
     </PageWrapper>
   );
 }
