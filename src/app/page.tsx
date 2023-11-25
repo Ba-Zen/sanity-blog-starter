@@ -9,6 +9,7 @@ import HomeTicker from "@/components/home-ticker";
 import ArticleCarousel from "@/components/article-carousel";
 import Link from "next/link";
 import { bricolage } from "@/styles/fonts";
+import Email from "@/components/email";
 const homeQuery = groq`*[_type == 'home'][0]{
 _id,title, introContentHeading, introContentText, introContentImages, textTicker1Words, textTicker2Words
 }`;
@@ -117,7 +118,7 @@ export default async function Home() {
         </h5>
         <div className="flex flex-col gap-y-5 lg:px-[100px]">
           {articles.slice(1, 4).map((e: any, i: number) => (
-            <div className="flex w-full">
+            <div className="flex w-full" key={i}>
               <Link href={`/blog/${e.slug}`} key={i} className="w-[50%]">
                 <div className="aspect-[12/9] w-full overflow-hidden bg-zinc-400">
                   {e.teaserImage && (
@@ -161,6 +162,7 @@ export default async function Home() {
         >
           Sign up for the latest news directly to your inbox
         </h5>
+        <Email />
       </div>
 
       {/* <main className="relative z-10 bg-white">
