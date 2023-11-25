@@ -1,12 +1,7 @@
 import type { Metadata } from "next";
-import { Inter, Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/components/navigation";
 import Footer from "@/components/footer";
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const bricolage = Bricolage_Grotesque({
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Sanity Blog Starter",
