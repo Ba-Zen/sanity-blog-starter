@@ -4,6 +4,9 @@ import { client, urlFor } from "@/lib/sanity";
 import { Article } from "../../../interface";
 import Link from "next/link";
 import { SanityDocument, groq } from "next-sanity";
+import BlogCard from "@/components/blog/blog-card";
+import PageWrapper from "@/components/page-wrapper";
+import { bricolage } from "@/styles/fonts";
 
 async function getArticles() {
   const query = '*[_type == "articles"].slug';
@@ -17,9 +20,9 @@ async function getCats() {
   return data;
 }
 
-const articlesQuery = groq`*[_type == "articles" && defined(slug.current)]{
-  _id, title, slug, teaserImage, introText
-}`;
+const articlesQuery = groq`*[_type == 'articles']{
+  ..., "id": _id,title, teaserImage, "slug": slug.current, "category": category->title
+ }`;
 
 export const dynamicParams = false;
 
@@ -29,54 +32,46 @@ export default async function Blog() {
   // console.log(articles)
   const cats = await getCats();
   return (
-    <Container>
-      <h1 className="pt-20 text-center text-5xl font-semibold  first-letter:uppercase lg:pt-[8rem]">
-        The Latest
-      </h1>
-
-      <div className="flex justify-center space-x-4 pt-8 md:pb-16">
-        <Link href={`/blog`} className="first-letter:uppercase">
-          All
-        </Link>
-        {cats.map((cat: SanityDocument, i: number) => (
-          <Link
-            key={i}
-            href={`/blog/categories/${cat.slug.current}`}
-            className="first-letter:uppercase"
+    <PageWrapper>
+      <div className="pt-14 md:pt-[65px] lg:md:pt-[164px]">
+        <div className="mx-auto px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
+          <h1
+            className={`${bricolage.className} mb-[15px] border-b border-zinc-200 pb-[30px] pt-[20px] text-center text-[32px] uppercase leading-[1.12] md:pb-[40px] md:pt-[30px] md:text-[44px] md:leading-[1.09]`}
           >
-            {cat.title}
-          </Link>
-        ))}
-      </div>
-      {data.length ? (
-        <div className="">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {articles.map((article: Article, i: string) => (
+            The Latest
+          </h1>
+          <div className="flex justify-center space-x-4 pt-8 md:pb-16">
+            <Link
+              href={`/blog`}
+              className={`${bricolage.className} font-semibold first-letter:uppercase`}
+            >
+              All
+            </Link>
+            {cats.map((cat: SanityDocument, i: number) => (
               <Link
-                href={`/blog/${article.slug.current}`}
                 key={i}
-                className="col-span-1 border px-6 py-8"
+                href={`/blog/categories/${cat.slug.current}`}
+                className={`${bricolage.className} font-semibold first-letter:uppercase`}
               >
-                <Image
-                  src={urlFor(article.teaserImage).url()}
-                  width={500}
-                  height={500}
-                  alt="change me"
-                  className="aspect-square rounded-md object-cover"
-                />
-                <h3 className="py-4 text-xl/5 font-semibold">
-                  {article.title}
-                </h3>
-                <p>{article.introText}</p>
+                {cat.title}
               </Link>
             ))}
           </div>
+          {data.length ? (
+            <div className="">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {articles.map((e: SanityDocument) => (
+                  <BlogCard article={e} key={e.id} />
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="pt-8">
+              <p>No articles found in this category</p>
+            </div>
+          )}
         </div>
-      ) : (
-        <div className="pt-8">
-          <p>No articles found in this category</p>
-        </div>
-      )}
-    </Container>
+      </div>
+    </PageWrapper>
   );
 }

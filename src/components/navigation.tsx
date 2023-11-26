@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
-import * as React from 'react'
-import Link from 'next/link'
+import * as React from "react";
+import Link from "next/link";
 
-import { cn } from '@/lib/utils'
+import { cn } from "@/lib/utils";
 
 import {
   NavigationMenu,
@@ -13,81 +13,76 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu'
-import Container from './container'
+} from "@/components/ui/navigation-menu";
+import Container from "./container";
 
 const components: { title: string; href: string; description: string }[] = [
   {
-    title: 'Alert Dialog',
-    href: '/docs/primitives/alert-dialog',
+    title: "Alert Dialog",
+    href: "/docs/primitives/alert-dialog",
     description:
-      'A modal dialog that interrupts the user with important content and expects a response.',
+      "A modal dialog that interrupts the user with important content and expects a response.",
   },
   {
-    title: 'Hover Card',
-    href: '/docs/primitives/hover-card',
+    title: "Hover Card",
+    href: "/docs/primitives/hover-card",
     description:
-      'For sighted users to preview content available behind a link.',
+      "For sighted users to preview content available behind a link.",
   },
   {
-    title: 'Progress',
-    href: '/docs/primitives/progress',
+    title: "Progress",
+    href: "/docs/primitives/progress",
     description:
-      'Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.',
+      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   },
   {
-    title: 'Scroll-area',
-    href: '/docs/primitives/scroll-area',
-    description: 'Visually or semantically separates content.',
+    title: "Scroll-area",
+    href: "/docs/primitives/scroll-area",
+    description: "Visually or semantically separates content.",
   },
   {
-    title: 'Tabs',
-    href: '/docs/primitives/tabs',
+    title: "Tabs",
+    href: "/docs/primitives/tabs",
     description:
-      'A set of layered sections of content—known as tab panels—that are displayed one at a time.',
+      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
   },
   {
-    title: 'Tooltip',
-    href: '/docs/primitives/tooltip',
+    title: "Tooltip",
+    href: "/docs/primitives/tooltip",
     description:
-      'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.',
+      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
   },
-]
+];
 
 export function Navigation() {
   return (
-    <div className='flex flex-col fixed top h-14 md:h-[65px] lg:h-[115px] w-full bg-white border-b border-zinc-300 z-[100]'>
-      <div className='flex justify-center items-center h-full'>
+    <div className="top fixed z-[100] flex h-14 w-full flex-col border-b border-zinc-300 bg-white md:h-[65px] lg:h-[115px]">
+      <div className="flex h-full items-center justify-center">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Link
-                href='/'
-                legacyBehavior
-                passHref
-              >
+              <Link href="/" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   Home
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link
-                href='/blog'
-                legacyBehavior
-                passHref
-              >
+              <Link href="/things-to-do" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  Things to do
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link href="/blog" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   Blog
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link
-                href='/shop'
-                legacyBehavior
-                passHref
-              >
+              <Link href="/shop" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   Shop
                 </NavigationMenuLink>
@@ -95,20 +90,20 @@ export function Navigation() {
             </NavigationMenuItem>
 
             {/* <NavigationMenuItem>
-              <NavigationMenuTrigger>Blog</NavigationMenuTrigger>
+              <NavigationMenuTrigger>Things to Do</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className='grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]'>
-                  <li className='row-span-3'>
+                <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                  <li className="row-span-3">
                     <NavigationMenuLink asChild>
                       <a
-                        className='flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md'
-                        href='/blog'
+                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                        href="/blog"
                       >
                         Logo icon
-                        <div className='mb-2 mt-4 text-lg font-medium'>
+                        <div className="mb-2 mt-4 text-lg font-medium">
                           shadcn/ui
                         </div>
-                        <p className='leading-tight text-muted-foreground'>
+                        <p className="leading-tight text-muted-foreground">
                           Beautifully designed components built with Radix UI
                           and Tailwind CSS.
                         </p>
@@ -116,20 +111,17 @@ export function Navigation() {
                     </NavigationMenuLink>
                   </li>
                   <ListItem
-                    href='/blog/categories/productivity'
-                    title='Productivity'
+                    href="/blog/categories/productivity"
+                    title="Productivity"
                   >
                     Re-usable components built using Radix UI and Tailwind CSS.
                   </ListItem>
-                  <ListItem
-                    href='/blog/categories/templates'
-                    title='Templates'
-                  >
+                  <ListItem href="/blog/categories/templates" title="Templates">
                     How to install dependencies and structure your app.
                   </ListItem>
                   <ListItem
-                    href='/docs/primitives/typography'
-                    title='Typography'
+                    href="/docs/primitives/typography"
+                    title="Typography"
                   >
                     Styles for headings, paragraphs, lists...etc
                   </ListItem>
@@ -154,11 +146,7 @@ export function Navigation() {
               </NavigationMenuContent>
             </NavigationMenuItem> */}
             <NavigationMenuItem>
-              <Link
-                href='/about'
-                legacyBehavior
-                passHref
-              >
+              <Link href="/about" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   About
                 </NavigationMenuLink>
@@ -168,12 +156,12 @@ export function Navigation() {
         </NavigationMenu>
       </div>
     </div>
-  )
+  );
 }
 
 const ListItem = React.forwardRef<
-  React.ElementRef<'a'>,
-  React.ComponentPropsWithoutRef<'a'>
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
 >(({ className, title, children, ...props }, ref) => {
   return (
     <li>
@@ -181,18 +169,18 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
-            className
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className,
           )}
           {...props}
         >
-          <div className='font-medium leading-none'>{title}</div>
-          <p className='line-clamp-2 leading-snug text-muted-foreground'>
+          <div className="font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 leading-snug text-muted-foreground">
             {children}
           </p>
         </a>
       </NavigationMenuLink>
     </li>
-  )
-})
-ListItem.displayName = 'ListItem'
+  );
+});
+ListItem.displayName = "ListItem";

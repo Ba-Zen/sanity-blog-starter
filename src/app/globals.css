@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
+/* @layer base {
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
@@ -47,14 +47,14 @@
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
   }
-}
+} */
 
 @layer base {
   * {
     @apply border-border;
   }
   body {
-    @apply text-primary overscroll-none;
+    @apply overscroll-none bg-white text-primary;
     -webkit-font-smoothing: antialiased;
     text-rendering: geometricPrecision;
     -moz-osx-font-smoothing: grayscale;

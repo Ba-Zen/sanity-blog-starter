@@ -1,88 +1,79 @@
-import { client, urlFor } from '@/lib/sanity'
-import { Article } from '../../../../../interface'
-import { notFound } from 'next/navigation'
-import Container from '@/components/container'
-import Image from 'next/image'
-import { SanityDocument, groq } from 'next-sanity'
-import Link from 'next/link'
+import { client, urlFor } from "@/lib/sanity";
+import Container from "@/components/container";
+import { SanityDocument, groq } from "next-sanity";
+import Link from "next/link";
+import BlogCard from "@/components/blog/blog-card";
+import { bricolage } from "@/styles/fonts";
+import { PortableText } from "@portabletext/react";
 
 async function getCats() {
-  const query = "*[_type == 'categories']"
-  const data = await client.fetch(query)
-  return data
+  const query = "*[_type == 'categories']";
+  const data = await client.fetch(query);
+  return data;
 }
 
-const categoryTitlesQuery = groq`*[_type == "categories"].title`
+const categoryTitlesQuery = groq`*[_type == "categories"].title`;
 export async function generateStaticParams() {
-  const titles = (await client.fetch(categoryTitlesQuery)) as string[]
-  return titles.map((title) => ({ category: title }))
+  const titles = (await client.fetch(categoryTitlesQuery)) as string[];
+  return titles.map((title) => ({ category: title }));
 }
 async function getArticles(category: string) {
   const query = `*[_type == 'articles' && category->title == "${category}"]{
-    _id,
-    title,
-    "category": category->title,
-      "teaserImage": teaserImage.asset->url,
-      "slug": slug.current,
+    ..., "id": _id,title, teaserImage, "slug": slug.current, "category": category->title
   }
-`
-  const data = await client.fetch(query)
-  return data
+`;
+  const data = await client.fetch(query);
+  return data;
 }
-export const dynamicParams = false
+export const dynamicParams = false;
 export default async function CategoryPage({ params }: { params: any }) {
-  const data: Article[] = await getArticles(params.category)
-  // console.log('data', data)
-  const cats = await getCats()
-
+  const articles: SanityDocument = await getArticles(params.category);
+  const cats = await getCats();
+  console.log(cats);
   return (
-    <Container>
-      <h1 className='text-5xl first-letter:uppercase  font-semibold text-center  pt-20 lg:pt-[8rem]'>
-        {params.category}
-      </h1>
-      <div className='flex space-x-4 justify-center pt-8 md:pb-16'>
-        <Link
-          href={`/blog`}
-          className='first-letter:uppercase'
+    <div className="pt-14 md:pt-[65px] lg:md:pt-[164px]">
+      <div className="mx-auto px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
+        <h1
+          className={`${bricolage.className} mb-[15px] border-b border-zinc-200 pb-[30px] pt-[20px] text-center text-[32px] uppercase leading-[1.12] md:pb-[40px] md:pt-[30px] md:text-[44px] md:leading-[1.09]`}
         >
-          All
-        </Link>
-        {cats.map((cat: SanityDocument, i: number) => (
+          {params.category}
+        </h1>
+        <PortableText value={cats.introContentText} />
+        {cats.introContentHeading ? (
+          <PortableText value={cats.introContentHeading} />
+        ) : null}
+        <div className="flex justify-center space-x-4 pt-8 md:pb-16">
           <Link
-            key={i}
-            href={`/blog/categories/${cat.slug.current}`}
-            className='first-letter:uppercase'
+            href={`/blog`}
+            className={`${bricolage.className} font-semibold first-letter:uppercase`}
           >
-            {cat.title}
+            All
           </Link>
-        ))}
-      </div>
-
-      {data.length > 0 ? (
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-          {data.map((article, i) => (
+          {cats.map((cat: SanityDocument, i: number) => (
             <Link
-              href={`/blog/${article.slug}`}
               key={i}
-              className='px-6 py-8 border col-span-1'
+              href={`/blog/categories/${cat.slug.current}`}
+              className={`${bricolage.className} font-semibold first-letter:uppercase`}
             >
-              <Image
-                src={urlFor(article.teaserImage).url()}
-                width={500}
-                height={500}
-                alt='change me'
-                className='aspect-square object-cover rounded-md'
-              />
-              <h3 className='text-xl/5 font-semibold py-4'>{article.title}</h3>
-              <p>{article.introText}</p>
+              {cat.title}
             </Link>
           ))}
         </div>
-      ) : (
-        <div className='pt-8'>
-          <p>No articles found in this category</p>
-        </div>
-      )}
-    </Container>
-  )
+
+        {articles.length ? (
+          <div className="">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {articles.map((e: SanityDocument) => (
+                <BlogCard article={e} key={e.id} />
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="pt-8">
+            <p>No articles found in this category</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }

@@ -5,11 +5,25 @@ import Image from "next/image";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { bricolage } from "@/styles/fonts";
+import BlogCard from "@/components/blog/blog-card";
 const articlesSlug = groq`
   *[_type == "article"]{
     slug
   }
 `;
+// const relatedArticles = groq`
+// *[_type == "articles" && !slug.current == $slug][0] {
+//   _id,
+//   title,
+//   "category": category->title,
+//   "teaserImage": teaserImage.asset->url,
+//   body,
+//   "slug": slug.current,
+// },`;
+
+// const relatedArticlesQuery = groq`*[_type == 'articles' && !slug.current == $slug]{
+//   _id,title, introContentHeading, introContentText, introContentImages, textTicker1Words, textTicker2Words
+//   }`;
 
 export async function generateStaticParams() {
   const slugs = (await client.fetch(articlesSlug)) as { slug: string }[];
@@ -30,11 +44,27 @@ export default async function BlogSlug({ params: { slug } }: any) {
       body,
       "slug": slug.current,
     }
-  `;
+   `;
+  const moreArticlesQuery = groq`
+  
+  *[_type == "articles" && slug.current != $slug] {
+    _id,
+      title,
+      "category": category->title,
+      "teaserImage": teaserImage.asset->url,
+      body,
+      "slug": slug.current,
+  } 
+
+   `;
 
   const article: SanityDocument = await client.fetch(query, { slug });
-  // console.log(article, 'article')
+  const moreArticles: SanityDocument = await client.fetch(moreArticlesQuery, {
+    slug,
+  });
 
+  // console.log(article, 'article')
+  // console.log(moreArticles);
   return (
     <div className="">
       <div className="px-5 pt-24 md:pt-[95px] lg:md:pt-[140px]">
@@ -53,11 +83,13 @@ export default async function BlogSlug({ params: { slug } }: any) {
                   </Link>
                 </div>
                 <h1
-                  className={`max-w-md pb-4 text-center text-3xl leading-[1] tracking-tight md:max-w-2xl md:text-[4vw] lg:pb-16 2xl:text-[3.5rem]`}
+                  className={`max-w-md pb-4 text-center text-3xl leading-[1] tracking-tight md:max-w-xl md:text-[4vw] lg:pb-16 2xl:text-[3.5rem]`}
                 >
                   {article.title}
                 </h1>
-                <p className="pb-4">This is the description of the article</p>
+                <p className="pb-4 italic">
+                  This is the description of the article
+                </p>
               </div>
               <Image
                 src={article.teaserImage}
@@ -70,6 +102,13 @@ export default async function BlogSlug({ params: { slug } }: any) {
           </div>
           <div className="flex max-w-xl flex-col gap-y-4 px-2">
             {article?.body ? <PortableText value={article.body} /> : null}
+          </div>
+          <div className="mx-auto overflow-hidden px-5 pb-[20px] pt-80 md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
+            <div className="flex flex-col gap-y-5 lg:flex-row lg:gap-x-5">
+              {moreArticles.map((e: any, i: number) => (
+                <BlogCard article={e} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
