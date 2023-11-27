@@ -1,18 +1,18 @@
 export default {
-  title: 'Things to Do Home',
-  name: 'singletonThingsToDo',
+  title: 'Attractions Home',
+  name: 'singletonAttractions',
   type: 'document',
   fields: [
     {
       name: 'title',
-      title: 'Things to do Title',
+      title: 'Attractions Title',
       type: 'string',
     },
     {
-      name: 'things',
-      title: 'Things',
+      name: 'attractionCats',
+      title: 'Attraction Category',
       type: 'reference',
-      to: [{type: 'things'}],
+      to: [{type: 'attractionCats'}],
     },
     {
       title: 'Intro Content Heading',
@@ -42,7 +42,7 @@ export default {
     },
     {
       name: 'slug',
-      title: 'Things Slug',
+
       type: 'slug',
       options: {
         source: 'title',

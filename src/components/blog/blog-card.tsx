@@ -11,7 +11,7 @@ const BlogCard = ({ article }: BlogCardProps) => {
   return (
     <div className="col-span-1 flex w-full flex-col">
       <Link href={`/blog/${article.slug}`} className="">
-        <div className="aspect-[12/9] w-full overflow-hidden bg-zinc-400">
+        <div className="aspect-[12/9] w-full overflow-hidden rounded-xl bg-zinc-400">
           {article.teaserImage && (
             <Image
               src={urlFor(article.teaserImage).url()}

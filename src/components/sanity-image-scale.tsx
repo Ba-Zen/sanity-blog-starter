@@ -1,16 +1,16 @@
-'use client'
-import { m, useScroll, useTransform } from 'framer-motion'
-import { useRef } from 'react'
-import Image from 'next/image'
+"use client";
+import { m, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import Image from "next/image";
 
 interface SanityImageScaleProps {
-  image: string
-  p?: boolean
-  w: number
-  h: number
-  alt?: string
+  image: string;
+  p?: boolean;
+  w: number;
+  h: number;
+  alt?: string;
 
-  hoverState?: string
+  hoverState?: string;
 }
 
 export default function SanityImageScale({
@@ -21,39 +21,36 @@ export default function SanityImageScale({
   alt,
   hoverState,
 }: SanityImageScaleProps) {
-  const ref = useRef(null)
+  const ref = useRef(null);
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start end', 'end 33%'],
-  })
+    offset: ["start end", "end 33%"],
+  });
 
   const scale = useTransform(scrollYProgress, [0, 1], [1.1, 1], {
     clamp: true,
-  })
+  });
 
   return (
-    <div className='relative overflow-hidden w-full h-full'>
+    <div className="relative h-full w-full overflow-hidden">
       <m.div
         style={{ scale: scale }}
-        className='will-change-transform overflow-hidden w-full h-full absolute inset-0 object-cover object-center'
+        className="absolute inset-0 h-full w-full overflow-hidden object-cover object-center will-change-transform"
       >
-        <div
-          ref={ref}
-          className='absolute inset-0 w-full h-full'
-        >
+        <div ref={ref} className="absolute inset-0 h-full w-full">
           <Image
             priority={p ? true : false}
             src={image}
             width={w}
             height={h}
-            alt={alt ? alt : 'No image description'}
-            className={`w-full h-full absolute inset-0 object-cover object-top transition-all ease-in-out duration-[1000ms] will-change-transform z-1 ${
-              hoverState ? hoverState : ''
+            alt={alt ? alt : "No image description"}
+            className={`duration-[1000ms] z-1 absolute inset-0 h-full w-full object-cover object-center transition-all ease-in-out will-change-transform ${
+              hoverState ? hoverState : ""
             }`}
           />
         </div>
       </m.div>
     </div>
-  )
+  );
 }

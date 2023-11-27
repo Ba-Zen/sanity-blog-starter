@@ -5,10 +5,19 @@ import articles from './articles'
 import blockContent from './blockContent'
 import contentSimple from './contentSimple'
 import singletonHome from './singletonHome'
-import singletonThingsToDo from './singletonThingsToDo'
-import things from './things'
+import singletonAttractions from './singletonAttractions'
+import attractionCats from './attractionCats'
+import attraction from './attraction'
 
-const documents = [product, categories, articles, singletonHome, singletonThingsToDo, things]
+const documents = [
+  product,
+  categories,
+  articles,
+  singletonHome,
+  attraction,
+  singletonAttractions,
+  attractionCats,
+]
 const objects = [blockContent, contentSimple]
 
 export const schemaTypes = [...documents, ...objects]

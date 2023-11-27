@@ -8,12 +8,6 @@ import BlogCard from "@/components/blog/blog-card";
 import PageWrapper from "@/components/page-wrapper";
 import { bricolage } from "@/styles/fonts";
 
-async function getArticles() {
-  const query = '*[_type == "articles"].slug';
-  const data = await client.fetch(query);
-  return data;
-}
-
 async function getCats() {
   const query = "*[_type == 'categories']";
   const data = await client.fetch(query);
@@ -27,9 +21,8 @@ const articlesQuery = groq`*[_type == 'articles']{
 export const dynamicParams = false;
 
 export default async function Blog() {
-  const data = await getArticles();
   const articles = await client.fetch(articlesQuery);
-  // console.log(articles)
+
   const cats = await getCats();
   return (
     <PageWrapper>
@@ -57,7 +50,7 @@ export default async function Blog() {
               </Link>
             ))}
           </div>
-          {data.length ? (
+          {articles.length ? (
             <div className="">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {articles.map((e: SanityDocument) => (

@@ -11,50 +11,107 @@ import { bricolage } from "@/styles/fonts";
 import Email from "@/components/email";
 import BlogCard from "@/components/blog/blog-card";
 import BlogPill from "@/components/blog/blog-pill";
-const homeQuery = groq`*[_type == 'singletonThingsToDo'][0]{
+import CategoriesIcon from "@/components/categories-icon";
+import AttractionCard from "@/components/attraction/attraction-card";
+
+async function getCats() {
+  const query = "*[_type == 'attractionCats']";
+  const data = await client.fetch(query);
+  return data;
+}
+
+const homeQuery = groq`*[_type == 'singletonAttractions'][0]{
 _id,title, introContentHeading, introContentText, introContentImages
 }`;
-const thingsQuery = groq`*[_type == 'things']{
- ..., "id": _id,title, "slug": slug.current, teaserImage
-}`;
+// const attractionsCatsQuery = groq`*[_type == 'attractionCats']{
+//  ..., "id": _id,title, "slug": slug.current, teaserImage
+// }`;
+const attractionQuery = groq`*[_type == 'attraction']{
+  ..., "id": _id,title, teaserImage, "slug": slug.current, "category": category->title, "catTitle": category->title, "catPage": category->slug.current
+ }`;
 
 export default async function Home() {
   const home = await client.fetch(homeQuery);
-  const things = await client.fetch(thingsQuery);
-  console.log(things);
+  // const attractionCats = await client.fetch(attractionsCatsQuery);
+  const attraction = await client.fetch(attractionQuery);
+  const cats = await getCats();
+
+  console.log(attraction);
   return (
     <PageWrapper>
       <div className="pt-14 md:pt-[65px] lg:md:pt-[164px]">
         <div className="mx-auto px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
-          <h1
+          {/* <h1
             className={`${bricolage.className} mb-[15px] border-b border-zinc-200 pb-[30px] pt-[20px] text-center text-[32px] uppercase leading-[1.12] md:pb-[40px] md:pt-[30px] md:text-[44px] md:leading-[1.09]`}
           >
             {home.title}
-          </h1>
+          </h1> */}
           <div className="mx-auto pb-[20px] md:pb-[30px] lg:max-w-[1220px]">
-            <div className="grid grid-cols-2 gap-2 lg:grid-cols-4 lg:gap-6">
-              {things.map((e: SanityDocument) => (
+            <div className="flex space-x-6 pb-6">
+              <Link
+                href={`/attractions`}
+                className={`${bricolage.className} font-semibold first-letter:uppercase`}
+              >
                 <div
                   className={
-                    "relative col-span-1 flex h-full  w-full flex-col items-center justify-center"
+                    "relative flex h-full w-full flex-col items-center justify-center overflow-hidden opacity-50"
                   }
-                  key={e._id}
                 >
-                  {e.teaserImage ? (
-                    <Image
-                      alt={e.title}
-                      src={urlFor(e.teaserImage).url()}
-                      width={500}
-                      height={500}
-                      className="aspect-[12/9] object-cover object-top md:aspect-square"
-                    />
-                  ) : (
-                    <div className="aspect-[12/9] h-full w-full bg-zinc-200 md:aspect-square"></div>
-                  )}
-                  <h2>{e.title}</h2>
+                  <Image
+                    alt={`All Attractions`}
+                    src={"/icons/pin.svg"}
+                    // src={urlFor(e.teaserImage).url()}
+                    width={34}
+                    height={34}
+                    className="overflow-hidden object-cover object-center"
+                  />
+
+                  <div className="text-[.85rem] font-semibold">All</div>
                 </div>
+              </Link>
+              {/* <CategoriesIcon cats={cats} /> */}
+              {cats.map((cat: SanityDocument) => (
+                <CategoriesIcon cat={cat} key={cat._id} />
+                // <Link
+                //   key={e._id}
+                //   href={`/attractions/categories/${e.slug.current}`}
+                //   className={`${bricolage.className} font-semibold first-letter:uppercase`}
+                // >
+                //   <div
+                //     className={
+                //       "relative flex h-full w-full flex-col items-center justify-center overflow-hidden opacity-50"
+                //     }
+                //     key={e._id}
+                //   >
+                //     {e.teaserImage ? (
+                //       <Image
+                //         alt={e.title}
+                //         src={urlFor(e.teaserImage).url()}
+                //         width={34}
+                //         height={34}
+                //         className="overflow-hidden object-cover object-center"
+                //       />
+                //     ) : (
+                //       <div className="h-full w-full overflow-hidden bg-zinc-200"></div>
+                //     )}
+                //     <div className="text-[.85rem] font-semibold">{e.title}</div>
+                //   </div>
+                // </Link>
               ))}
             </div>
+            {attraction.length ? (
+              <div className="">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                  {attraction.map((e: SanityDocument) => (
+                    <AttractionCard attraction={e} key={e.id} />
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="pt-8">
+                <p>No articles found in this category</p>
+              </div>
+            )}
           </div>
           {/* <div className="flex flex-col border-b border-zinc-200 pb-[15px] md:pb-[40px] md:pt-[30px] lg:flex-row">
             <Link href={`/blog/${articles[3].slug}`} className="lg:w-[50%]">
@@ -92,7 +149,7 @@ export default async function Home() {
         </div>
         <div className="mx-auto overflow-hidden px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
           {/* <div className="flex flex-col gap-y-5 lg:flex-row lg:gap-x-5">
-            {things.map((e: SanityDocument) => (
+            {attractionCats.map((e: SanityDocument) => (
               <BlogCard article={e} key={e.id} />
             ))}
           </div> */}
@@ -105,7 +162,7 @@ export default async function Home() {
           The Latest
         </h5>
         {/* <div className="flex flex-col gap-y-5 lg:px-[100px]">
-          {things.slice(1, 4).map((e: SanityDocument) => (
+          {attractionCats.slice(1, 4).map((e: SanityDocument) => (
             <BlogPill article={e} key={e.id} />
           ))}
         </div> */}

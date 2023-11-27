@@ -18,25 +18,25 @@ import Container from "./container";
 
 const components: { title: string; href: string; description: string }[] = [
   {
-    title: "Alert Dialog",
+    title: "Trails & Tours",
     href: "/docs/primitives/alert-dialog",
     description:
       "A modal dialog that interrupts the user with important content and expects a response.",
   },
   {
-    title: "Hover Card",
+    title: "Museums",
     href: "/docs/primitives/hover-card",
     description:
       "For sighted users to preview content available behind a link.",
   },
   {
-    title: "Progress",
+    title: "Children's Activities",
     href: "/docs/primitives/progress",
     description:
       "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   },
   {
-    title: "Scroll-area",
+    title: "Live Music",
     href: "/docs/primitives/scroll-area",
     description: "Visually or semantically separates content.",
   },
@@ -56,7 +56,7 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function Navigation() {
   return (
-    <div className="top fixed z-[100] flex h-14 w-full flex-col border-b border-zinc-300 bg-white md:h-[65px] lg:h-[115px]">
+    <div className="top fixed z-[100] flex h-14 w-full flex-col border-b border-zinc-300 bg-white md:h-[65px] lg:h-[105px]">
       <div className="flex h-full items-center justify-center">
         <NavigationMenu>
           <NavigationMenuList>
@@ -68,9 +68,9 @@ export function Navigation() {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/things-to-do" legacyBehavior passHref>
+              <Link href="/attractions" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Things to do
+                  Attractions
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
@@ -92,7 +92,7 @@ export function Navigation() {
             {/* <NavigationMenuItem>
               <NavigationMenuTrigger>Things to Do</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                <ul className="grid gap-3 bg-white p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                   <li className="row-span-3">
                     <NavigationMenuLink asChild>
                       <a
@@ -128,11 +128,18 @@ export function Navigation() {
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem> */}
-
-            {/* <NavigationMenuItem>
-              <NavigationMenuTrigger>Shop</NavigationMenuTrigger>
+            {/* 
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>
+                {" "}
+                <Link href="/things-to-do" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    Things to do
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className='grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] '>
+                <ul className="grid w-[400px] gap-3 bg-white p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                   {components.map((component) => (
                     <ListItem
                       key={component.title}
