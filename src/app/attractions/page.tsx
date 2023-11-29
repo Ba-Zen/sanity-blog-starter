@@ -14,7 +14,13 @@ import BlogPill from "@/components/blog/blog-pill";
 import CategoriesIcon from "@/components/categories-icon";
 import AttractionCard from "@/components/attraction/attraction-card";
 import Carousel from "@/components/carousel";
+import type { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Boston City Attractions Guide",
+  description:
+    "Explore the top attractions in our city with City Explorers. Discover must-visit landmarks, museums, parks, and more. Plan your itinerary with our attractions guide and travel tips.",
+};
 async function getCats() {
   const query = "*[_type == 'attractionCats']";
   const data = await client.fetch(query);

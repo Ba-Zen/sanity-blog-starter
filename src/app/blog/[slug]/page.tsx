@@ -7,24 +7,12 @@ import { PortableText } from "@portabletext/react";
 import { bricolage } from "@/styles/fonts";
 import BlogCard from "@/components/blog/blog-card";
 import { RichTextComponents } from "@/components/sanity/rich-text-components";
+
 const articlesSlug = groq`
   *[_type == "article"]{
     slug
   }
 `;
-// const relatedArticles = groq`
-// *[_type == "articles" && !slug.current == $slug][0] {
-//   _id,
-//   title,
-//   "category": category->title,
-//   "teaserImage": teaserImage.asset->url,
-//   body,
-//   "slug": slug.current,
-// },`;
-
-// const relatedArticlesQuery = groq`*[_type == 'articles' && !slug.current == $slug]{
-//   _id,title, introContentHeading, introContentText, introContentImages, textTicker1Words, textTicker2Words
-//   }`;
 
 export async function generateStaticParams() {
   const slugs = (await client.fetch(articlesSlug)) as { slug: string }[];
@@ -34,7 +22,42 @@ export async function generateStaticParams() {
     },
   }));
 }
+export async function generateMetadata({ params: { slug } }: any) {
+  try {
+    const article = await client.fetch(
+      groq`*[_type == "articles" && slug.current == "${slug}"][0]{
+          _id,
+          _createdAt,
+          "id": _id,
+          title, 
+          //  "category": category->title,
+          ...,
+          _id, title,  _createdAt, mainImage,
+          "slug": slug.current
+      }`,
+    );
+    if (!article)
+      return {
+        title: "Not Found",
+        description: "The page you are looking for does not exist.",
+      };
 
+    return {
+      title: `${article.title}`,
+      description: article.description,
+      alternates: {
+        // canonical: `https://colorcoded.studio/article/${article.slug}`,
+        canonical: `/blog/${article.slug}`,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      title: "Not Found",
+      description: "The page you are looking for does not exist.",
+    };
+  }
+}
 export default async function BlogSlug({ params: { slug } }: any) {
   const query = groq`
     *[_type == "articles" && slug.current == $slug][0] {
@@ -64,7 +87,7 @@ export default async function BlogSlug({ params: { slug } }: any) {
     slug,
   });
 
-  // console.log(article, 'article')
+  console.log(article, "article");
   // console.log(moreArticles);
   return (
     <div className="">

@@ -43,9 +43,9 @@ const BlogPill = ({ article }: BlogPillProps) => {
             >
               {article.title}
             </h3>
-            <p className="text-[19px] leading-[1.32] md:text-[20px] md:leading-[1.3]">
+            {/* <p className="text-[19px] leading-[1.32] md:text-[20px] md:leading-[1.3]">
               This is a description of the articlarticle.
-            </p>
+            </p> */}
           </Link>
         </div>
       </div>
