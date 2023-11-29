@@ -6,7 +6,7 @@ import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { bricolage } from "@/styles/fonts";
 import BlogCard from "@/components/blog/blog-card";
-import { RichTextComponents } from "@/components/sanity/rich-text-components";
+import { RichTextComponents } from "@/components/blocks/rich-text-components";
 
 const articlesSlug = groq`
   *[_type == "article"]{
