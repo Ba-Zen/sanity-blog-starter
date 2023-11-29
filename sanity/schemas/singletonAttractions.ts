@@ -9,10 +9,10 @@ export default {
       type: 'string',
     },
     {
-      name: 'attractionCats',
-      title: 'Attraction Category',
-      type: 'reference',
-      to: [{type: 'attractionCats'}],
+      name: 'introImage',
+      title: 'Intro Image',
+      type: 'image',
+      description: 'Image hero on the attractions page.',
     },
     {
       title: 'Intro Content Heading',

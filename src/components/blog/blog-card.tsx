@@ -26,7 +26,7 @@ const BlogCard = ({ article }: BlogCardProps) => {
       <div className="mt-2 flex flex-col lg:mt-3">
         <div className="">
           <Link
-            href={`/blog/categories/${article.category}`}
+            href={`/blog/categories/${article.catPage}`}
             className="text-[11px] font-semibold uppercase text-rose-600 md:text-xs lg:hover:underline"
           >
             {article.category}

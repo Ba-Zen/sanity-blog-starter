@@ -11,11 +11,13 @@ import { bricolage } from "@/styles/fonts";
 import Email from "@/components/email";
 import BlogCard from "@/components/blog/blog-card";
 import BlogPill from "@/components/blog/blog-pill";
+import Faqs from "@/components/faqs";
+import CallToAction from "@/components/call-to-action";
 const homeQuery = groq`*[_type == 'home'][0]{
 _id,title, introContentHeading, introContentText, introContentImages, textTicker1Words, textTicker2Words
 }`;
 const articlesQuery = groq`*[_type == 'articles']{
- ..., "id": _id,title, teaserImage, "slug": slug.current, "category": category->title
+ ..., "id": _id,title, teaserImage, "slug": slug.current, "category": category->title, "catPage": category->slug.current
 }`;
 const attractionsQuery = groq`*[_type == 'attractionCats']{
   ..., "id": _id,title, "slug": slug.current, teaserImage
@@ -64,33 +66,13 @@ export default async function Home() {
   // console.log(articles)
   return (
     <PageWrapper>
-      <div className="pt-14 md:pt-[65px] lg:md:pt-[164px]">
-        <div className="mx-auto px-5 pb-[20px] md:max-w-[100%] md:pb-[30px] lg:max-w-[1220px]">
+      <div className="relative pt-14 md:pt-[65px] lg:md:pt-[90px]">
+        <div className="mx-auto px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
           <h1
             className={`${bricolage.className}  border-b border-zinc-200 pb-[30px] pt-[20px] text-[36px] font-bold leading-[1.12] md:pb-[40px] md:pt-[30px] md:text-[54px] md:leading-[1.09]`}
           >
             <span className="text-orange-600">Explore</span> Boston
           </h1>
-          <div className="flex gap-4 overflow-x-auto py-6 md:grid md:grid-cols-4">
-            {attractionCats.map((e: SanityDocument) => (
-              <Link
-                href={`/attractions/categories/${e.slug}`}
-                className="group flex min-w-[150px] items-center justify-between rounded-xl border px-4 py-1 transition-all duration-300 ease-in-out hover:bg-black md:py-3"
-                key={e._id}
-              >
-                <h2 className="pr-2 font-semibold leading-[1] transition-all duration-300 ease-in-out group-hover:text-white">
-                  {e.title}
-                </h2>
-                <Image
-                  alt={`${e.title} icon`}
-                  src={urlFor(e.teaserImage).url()}
-                  width={26}
-                  height={26}
-                  className="transition-all duration-300 ease-in-out group-hover:invert"
-                />
-              </Link>
-            ))}
-          </div>
 
           <div className="flex flex-col border-b border-zinc-200 pb-[15px] md:pb-[40px] md:pt-[30px] lg:flex-row">
             <Link href={`/blog/${articles[3].slug}`} className="lg:w-[50%]">
@@ -128,56 +110,61 @@ export default async function Home() {
           </div>
         </div>
         <div className="mx-auto overflow-hidden px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
-          <div className="flex flex-col gap-y-5 lg:flex-row lg:gap-x-5">
-            {articles.slice(1, 4).map((e: SanityDocument) => (
+          <div className="grid grid-cols-2 gap-x-5 gap-y-5 lg:grid-cols-4">
+            {articles.slice(0, 4).map((e: SanityDocument) => (
               <BlogCard article={e} key={e.id} />
             ))}
           </div>
         </div>
       </div>
       <div className="mx-auto px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
-        <h5
+        <div
+          className={`${bricolage.className} pb-[30px] pt-[20px] text-[28px] font-bold leading-[1.12] md:pb-[40px] md:pt-[30px]`}
+        >
+          Popular Experiences
+        </div>
+        <div className="flex gap-4 overflow-x-auto py-6 md:grid md:grid-cols-4">
+          {attractionCats.map((e: SanityDocument) => (
+            <Link
+              href={`/attractions/categories/${e.slug}`}
+              className="group flex min-w-[170px] items-center justify-between rounded-full border px-4 py-1.5 transition-all duration-300 ease-in-out hover:bg-black md:py-3"
+              key={e._id}
+            >
+              <h2 className="pr-2 font-semibold leading-[1] transition-all duration-300 ease-in-out group-hover:text-white">
+                {e.title}
+              </h2>
+              <Image
+                alt={`${e.title} icon`}
+                src={urlFor(e.teaserImage).url()}
+                width={26}
+                height={26}
+                className="transition-all duration-300 ease-in-out group-hover:invert"
+              />
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      <div className="mx-auto px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
+        {/* <h5
           className={`${bricolage.className} mb-5 border-y border-zinc-200 py-4 text-center text-[24px] leading-[1.5] md:mb-[30px] md:py-6 md:text-[36px] md:leading-[1] lg:py-8`}
         >
           The Latest
-        </h5>
-        <div className="flex flex-col gap-y-5 lg:px-[100px]">
+        </h5> */}
+        <div
+          className={`${bricolage.className} my-5  border-t border-zinc-200 py-4 pb-[30px] pt-[20px] text-[28px] font-bold  leading-[1.12] md:pb-[40px] md:pt-[30px]`}
+        >
+          The Latest
+        </div>
+        <div className="flex max-w-3xl flex-col gap-y-5">
           {articles.slice(1, 4).map((e: SanityDocument) => (
             <BlogPill article={e} key={e.id} />
           ))}
         </div>
       </div>
-      <div className="mx-auto my-20 px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
-        <h5
-          className={`${bricolage.className} mb-5 border-y border-zinc-200 bg-yellow-400 py-4 text-center text-[24px] leading-[1.5] md:mb-[30px] md:py-6 md:text-[36px] md:leading-[1] lg:py-8`}
-        >
-          Sign up for the latest news directly to your inbox
-        </h5>
-        <Email />
-      </div>
 
-      <div className="mx-auto px-5 pb-[20px] md:max-w-[100%] md:pb-[30px] lg:max-w-[1220px]">
-        <div className="relative flex gap-1">
-          <div className="aspect-video w-full overflow-hidden rounded-xl lg:h-[30vw] lg:w-1/2">
-            <SanityImageScale
-              image={urlFor(home.introContentImages[1]).url()}
-              w={500}
-              h={500}
-              alt="change me"
-              p
-            />
-          </div>
-          <div className="aspect-video w-full overflow-hidden rounded-xl lg:h-[30vw] lg:w-1/2">
-            <SanityImageScale
-              image={urlFor(home.introContentImages[0]).url()}
-              w={500}
-              h={500}
-              alt="change me"
-              p
-            />
-          </div>
-        </div>
-        <div className="relative flex items-center gap-1 pt-1">
+      <div className="mx-auto px-5 pb-[20px] md:max-w-[100%] md:pb-[30px] md:pt-[120px]  lg:max-w-[1220px]">
+        <div className="relative flex items-center gap-6 pt-1">
           <div className="mb-16 w-full pr-6 lg:mb-0 lg:w-1/2">
             {home.introContentHeading && (
               <div
@@ -192,7 +179,7 @@ export default async function Home() {
               </div>
             )}
           </div>
-          <div className="aspect-video w-full overflow-hidden rounded-xl lg:h-[30vw] lg:w-1/2">
+          <div className="aspect-video w-full overflow-hidden rounded-xl lg:h-[22vw] lg:w-1/2">
             <SanityImageScale
               image={urlFor(home.introContentImages[2]).url()}
               w={500}
@@ -201,6 +188,64 @@ export default async function Home() {
               p
             />
           </div>
+        </div>
+        <div className="relative flex items-center gap-6 pt-1">
+          <div className="aspect-video w-full overflow-hidden rounded-xl lg:h-[22vw] lg:w-1/2">
+            <SanityImageScale
+              image={urlFor(home.introContentImages[1]).url()}
+              w={500}
+              h={500}
+              alt="change me"
+              p
+            />
+          </div>
+          <div className="mb-16 w-full pr-6 lg:mb-0 lg:w-1/2">
+            {home.introContentHeading && (
+              <div
+                className={`${bricolage.className} pb-[30px] pt-[20px] text-[28px] font-bold leading-[1.12] md:pb-[40px] md:pt-[30px]`}
+              >
+                <PortableText value={home.introContentHeading} />
+              </div>
+            )}
+            {home.introContentText && (
+              <div className="content mb-5 max-w-[530px] text-base leading-tight lg:mb-[3vw] lg:text-lg lg:leading-tight 2xl:max-w-[740px] 2xl:text-2xl 2xl:leading-tight">
+                <PortableText value={home.introContentText} />
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="relative flex items-center gap-6 pt-1">
+          <div className="mb-16 w-full pr-6 lg:mb-0 lg:w-1/2">
+            {home.introContentHeading && (
+              <div
+                className={`${bricolage.className} pb-[30px] pt-[20px] text-[28px] font-bold leading-[1.12] md:pb-[40px] md:pt-[30px]`}
+              >
+                <PortableText value={home.introContentHeading} />
+              </div>
+            )}
+            {home.introContentText && (
+              <div className="content mb-5 max-w-[530px] text-base leading-tight lg:mb-[3vw] lg:text-lg lg:leading-tight 2xl:max-w-[740px] 2xl:text-2xl 2xl:leading-tight">
+                <PortableText value={home.introContentText} />
+              </div>
+            )}
+          </div>
+          <div className="aspect-video w-full overflow-hidden rounded-xl lg:h-[22vw] lg:w-1/2">
+            <SanityImageScale
+              image={urlFor(home.introContentImages[0]).url()}
+              w={500}
+              h={500}
+              alt="change me"
+              p
+            />
+          </div>
+        </div>
+        <div className="py-40">
+          <div
+            className={`${bricolage.className} pb-[30px] pt-[20px] text-[28px] font-bold leading-[1.12] md:pb-[40px] md:pt-[30px]`}
+          >
+            Frequently Asked Questions about Boston
+          </div>
+          <Faqs />
         </div>
       </div>
     </PageWrapper>

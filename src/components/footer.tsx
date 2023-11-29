@@ -1,4 +1,7 @@
+import { bricolage } from "@/styles/fonts";
 import { FC, SVGProps } from "react";
+import Email from "./email";
+import CallToAction from "./call-to-action";
 
 interface NavigationItem {
   name: string;
@@ -87,6 +90,9 @@ const Footer: FC = () => {
   return (
     <footer className="bg-white">
       <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
+        <div className="mx-auto my-20 px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
+          <CallToAction />
+        </div>
         <nav
           className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
           aria-label="Footer"

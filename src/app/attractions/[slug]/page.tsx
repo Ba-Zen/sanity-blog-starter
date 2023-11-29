@@ -40,6 +40,7 @@ export default async function BlogSlug({ params: { slug } }: any) {
       _id,
       title,
       "category": category->title,
+      "catSlug": category->slug.current,
       "teaserImage": teaserImage.asset->url,
       body,
       "slug": slug.current,
@@ -47,10 +48,12 @@ export default async function BlogSlug({ params: { slug } }: any) {
    `;
   const moreAttractionsQuery = groq`
   
-  *[_type == "attraction" && slug.current != $slug] {
+  *[_type == "attraction" && slug.current != $slug][0..3] {
     _id,
       title,
       "category": category->title,
+      "catSlug": category->slug.current,
+
       "teaserImage": teaserImage.asset->url,
       body,
       "slug": slug.current,
@@ -81,7 +84,7 @@ export default async function BlogSlug({ params: { slug } }: any) {
                   className={`flex gap-x-2 pb-4 text-sm font-semibold uppercase text-rose-600`}
                 >
                   <Link href={`/attractions`}>Attractions</Link>/
-                  <Link href={`/attractions/categories/${attraction.category}`}>
+                  <Link href={`/attractions/categories/${attraction.catSlug}`}>
                     {attraction.category}
                   </Link>
                 </div>
@@ -109,7 +112,7 @@ export default async function BlogSlug({ params: { slug } }: any) {
           <div className="mx-auto overflow-hidden px-5 pb-[20px] pt-80 md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
             <div className="flex flex-col gap-y-5 lg:flex-row lg:gap-x-5">
               {moreAttractions.map((e: any, i: number) => (
-                <BlogCard article={e} />
+                <BlogCard article={e} key={i} />
               ))}
             </div>
           </div>

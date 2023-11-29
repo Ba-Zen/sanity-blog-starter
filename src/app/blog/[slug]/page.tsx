@@ -91,13 +91,15 @@ export default async function BlogSlug({ params: { slug } }: any) {
                   This is the description of the article
                 </p>
               </div>
-              <Image
-                src={article.teaserImage}
-                width={700}
-                height={700}
-                alt="change me"
-                className="w-full object-cover md:aspect-[1/1] md:w-1/2 xl:pb-8"
-              />
+              <div className="w-full overflow-hidden rounded-xl md:w-1/2 xl:pb-8">
+                <Image
+                  src={article.teaserImage}
+                  width={700}
+                  height={700}
+                  alt="change me"
+                  className="aspect-[12/9] overflow-hidden rounded-xl object-cover md:aspect-[1/1]"
+                />
+              </div>
             </div>
           </div>
           <div className="flex max-w-xl flex-col gap-y-4 px-2">

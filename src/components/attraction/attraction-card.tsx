@@ -9,7 +9,7 @@ interface AttractionProps {
 }
 const AttractionCard = ({ attraction }: AttractionProps) => {
   return (
-    <div className="col-span-1 flex w-full flex-col">
+    <div className="flex w-full flex-col">
       <Link href={`/attractions/${attraction.slug}`} className="">
         <div className="aspect-[12/9] w-full overflow-hidden rounded-xl bg-zinc-400">
           {attraction.teaserImage && (
@@ -38,9 +38,9 @@ const AttractionCard = ({ attraction }: AttractionProps) => {
               {attraction.title}
             </h3>
 
-            <p className="text-[19px] leading-[1.32] md:text-[20px] md:leading-[1.3]">
+            {/* <p className="text-[19px] leading-[1.32] md:text-[20px] md:leading-[1.3]">
               This is a description of the attraction.
-            </p>
+            </p> */}
           </Link>
         </div>
       </div>

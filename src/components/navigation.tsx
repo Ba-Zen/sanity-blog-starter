@@ -56,7 +56,7 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function Navigation() {
   return (
-    <div className="top fixed z-[100] flex h-14 w-full flex-col border-b border-zinc-300 bg-white md:h-[65px] lg:h-[105px]">
+    <div className="top fixed z-[100] flex h-14 w-full flex-col border-b border-zinc-300 bg-white md:h-[65px] lg:h-[75px]">
       <div className="flex h-full items-center justify-center">
         <NavigationMenu>
           <NavigationMenuList>
@@ -152,13 +152,13 @@ export function Navigation() {
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem> */}
-            <NavigationMenuItem>
+            {/* <NavigationMenuItem>
               <Link href="/about" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   About
                 </NavigationMenuLink>
               </Link>
-            </NavigationMenuItem>
+            </NavigationMenuItem> */}
           </NavigationMenuList>
         </NavigationMenu>
       </div>

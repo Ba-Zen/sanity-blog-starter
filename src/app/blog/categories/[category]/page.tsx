@@ -19,7 +19,7 @@ export async function generateStaticParams() {
 }
 async function getArticles(category: string) {
   const query = `*[_type == 'articles' && category->title == "${category}"]{
-    ..., "id": _id,title, teaserImage, "slug": slug.current, "category": category->title
+    ..., "id": _id,title, teaserImage, "slug": slug.current, "category": category->title,"catPage": category->slug.current 
   }
 `;
   const data = await client.fetch(query);
