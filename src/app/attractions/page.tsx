@@ -112,7 +112,7 @@ export default async function Home() {
               </div>
             </div>
           </div>
-          <div className="">
+          {/* <div className="">
             <div
               className={`${bricolage.className} pb-[30px] pt-[20px] text-[28px] font-bold leading-[1.12] md:pb-[40px] md:pt-[30px]`}
             >
@@ -138,7 +138,7 @@ export default async function Home() {
                 </Link>
               ))}
             </div>
-          </div>
+          </div> */}
           <main className="mx-auto pb-[20px] md:pb-[30px]">
             <div
               className={`${bricolage.className} pb-[30px] pt-[20px] text-[28px] font-bold leading-[1.12] md:pb-[40px] md:pt-[30px]`}
@@ -146,20 +146,6 @@ export default async function Home() {
               Ways to tour Boston
             </div>
             <Carousel items={tours} />
-
-            {/* {tours.length ? (
-              <div className="pt-14 md:pt-[65px] lg:md:pt-[164px]">
-                <div className="flex gap-x-6 whitespace-nowrap ">
-                  {tours.map((e: SanityDocument) => (
-                    <AttractionCard attraction={e} key={e.id} />
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <div className="pt-8">
-                <p>No articles found in this category</p>
-              </div>
-            )} */}
 
             <div
               className={`${bricolage.className} pb-6 pt-[20px] text-[28px] font-bold leading-[1.12] md:pt-[30px]`}
@@ -179,15 +165,6 @@ export default async function Home() {
                 <p>No articles found in this category</p>
               </div>
             )}
-            {/* <div className="mx-auto my-20 px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
-              <h5
-                className={`${bricolage.className} mb-5 border-y border-zinc-200 bg-yellow-400 py-4 text-center text-[24px] leading-[1.5] md:mb-[30px] md:py-6 md:text-[36px] md:leading-[1] lg:py-8`}
-              >
-                Sign up for the latest news directly to your inbox
-              </h5>
-              <Email />
-            </div> */}
-            <div className="h-screen"></div>
           </main>
         </div>
       </div>

@@ -29,9 +29,9 @@ async function getAttractions(slug: string) {
   return data;
 }
 export const dynamicParams = false;
-
 export default async function CategoryPage({ params }: { params: any }) {
   const attractions: SanityDocument = await getAttractions(params.category);
+
   const cats = await getCats();
 
   return (

@@ -81,13 +81,13 @@ export function Navigation() {
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
-            <NavigationMenuItem>
+            {/* <NavigationMenuItem>
               <Link href="/shop" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   Shop
                 </NavigationMenuLink>
               </Link>
-            </NavigationMenuItem>
+            </NavigationMenuItem> */}
 
             {/* <NavigationMenuItem>
               <NavigationMenuTrigger>Things to Do</NavigationMenuTrigger>

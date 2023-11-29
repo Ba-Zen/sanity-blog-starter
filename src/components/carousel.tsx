@@ -127,12 +127,15 @@ const Card = ({ attraction }: CardProps) => {
       </Link>
       <div className="mt-2 flex flex-col lg:mt-3">
         <div className="">
-          <Link
+          {/* <Link
             href={`/attractions/categories/${attraction.catPage}`}
             className="text-[11px] font-semibold uppercase text-rose-600 md:text-xs lg:hover:underline"
           >
             {attraction.category}
-          </Link>
+          </Link> */}
+          <span className="text-[11px] font-semibold uppercase text-rose-600 md:text-xs">
+            {attraction.category}
+          </span>
           <Link href={`/attractions/${attraction.slug}`} className="w-min">
             <h3
               className={`${bricolage.className} mb-4 mt-2.5 text-[22px] font-semibold leading-[1.18] md:text-[24px] md:leading-[1.2] lg:text-[30px] lg:leading-[1.2] lg:hover:underline`}

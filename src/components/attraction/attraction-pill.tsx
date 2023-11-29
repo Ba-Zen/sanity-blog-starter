@@ -30,12 +30,15 @@ const AttractionPill = ({ attraction }: AttractionPillProps) => {
         </div>
       </Link>
       <div className="ml-5 flex w-[100%] flex-col lg:mt-5">
-        <Link
+        {/* <Link
           href={`/attractions/categories/${attraction.category}`}
           className="text-[11px] font-semibold uppercase text-rose-600 md:text-xs lg:hover:underline"
         >
           {attraction.category}
-        </Link>
+        </Link> */}
+        <span className="text-[11px] font-semibold uppercase text-rose-600 md:text-xs">
+          {attraction.category}
+        </span>
         <div className="">
           <Link href={`/blog/${attraction.slug}`}>
             <h3

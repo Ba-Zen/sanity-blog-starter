@@ -13,15 +13,16 @@ import BlogCard from "@/components/blog/blog-card";
 import BlogPill from "@/components/blog/blog-pill";
 import Faqs from "@/components/faqs";
 import CallToAction from "@/components/call-to-action";
+import Carousel from "@/components/carousel";
 const homeQuery = groq`*[_type == 'home'][0]{
 _id,title, introContentHeading, introContentText, introContentImages, textTicker1Words, textTicker2Words
 }`;
 const articlesQuery = groq`*[_type == 'articles']{
  ..., "id": _id,title, teaserImage, "slug": slug.current, "category": category->title, "catPage": category->slug.current
 }`;
-const attractionsQuery = groq`*[_type == 'attractionCats']{
-  ..., "id": _id,title, "slug": slug.current, teaserImage
- }`;
+// const attractionsQuery = groq`*[_type == 'attractionCats']{
+//   ..., "id": _id,title, "slug": slug.current, teaserImage
+//  }`;
 
 const options = [
   {
@@ -57,13 +58,16 @@ const options = [
     icon: "/icons/elipses.svg",
   },
 ];
-
+const attractionQuery = groq`*[_type == 'attraction'][0..6]{
+  ..., "id": _id,title, teaserImage, "slug": slug.current, "category": category->title, "catTitle": category->title, "catPage": category->slug.current
+ }`;
 export default async function Home() {
   const home = await client.fetch(homeQuery);
   const articles = await client.fetch(articlesQuery);
-  const attractionCats = await client.fetch(attractionsQuery);
+  const attractions = await client.fetch(attractionQuery);
+  // const attractionCats = await client.fetch(attractionsQuery);
 
-  // console.log(articles)
+  // console.log(attractions);
   return (
     <PageWrapper>
       <div className="relative pt-14 md:pt-[65px] lg:md:pt-[90px]">
@@ -117,7 +121,7 @@ export default async function Home() {
           </div>
         </div>
       </div>
-      <div className="mx-auto px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
+      {/* <div className="mx-auto px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
         <div
           className={`${bricolage.className} pb-[30px] pt-[20px] text-[28px] font-bold leading-[1.12] md:pb-[40px] md:pt-[30px]`}
         >
@@ -143,14 +147,16 @@ export default async function Home() {
             </Link>
           ))}
         </div>
-      </div>
+      </div> */}
 
       <div className="mx-auto px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
-        {/* <h5
-          className={`${bricolage.className} mb-5 border-y border-zinc-200 py-4 text-center text-[24px] leading-[1.5] md:mb-[30px] md:py-6 md:text-[36px] md:leading-[1] lg:py-8`}
+        <div
+          className={`${bricolage.className} pb-[30px] pt-[20px] text-[28px] font-bold leading-[1.12] md:pb-[40px] md:pt-[30px]`}
         >
-          The Latest
-        </h5> */}
+          Popular Experiences
+        </div>
+        <Carousel items={attractions} />
+
         <div
           className={`${bricolage.className} my-5  border-t border-zinc-200 py-4 pb-[30px] pt-[20px] text-[28px] font-bold  leading-[1.12] md:pb-[40px] md:pt-[30px]`}
         >

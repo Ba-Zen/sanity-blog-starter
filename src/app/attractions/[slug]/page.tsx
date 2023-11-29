@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { bricolage } from "@/styles/fonts";
-import BlogCard from "@/components/blog/blog-card";
+import AttractionCard from "@/components/attraction/attraction-card";
 const attractionSlug = groq`
   *[_type == "attraction"]{
     slug
@@ -70,7 +70,7 @@ export default async function BlogSlug({ params: { slug } }: any) {
   );
 
   // console.log(article, 'article')
-  console.log(attraction);
+  // console.log(attraction);
   return (
     <div className="">
       <div className="px-5 pt-24 md:pt-[95px] lg:md:pt-[140px]">
@@ -112,7 +112,7 @@ export default async function BlogSlug({ params: { slug } }: any) {
           <div className="mx-auto overflow-hidden px-5 pb-[20px] pt-80 md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
             <div className="flex flex-col gap-y-5 lg:flex-row lg:gap-x-5">
               {moreAttractions.map((e: SanityDocument) => (
-                <BlogCard article={e} key={e._id} />
+                <AttractionCard attraction={e} key={e._id} />
               ))}
             </div>
           </div>
