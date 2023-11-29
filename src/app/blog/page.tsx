@@ -54,7 +54,7 @@ export default async function Blog() {
             <div className="">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {articles.map((e: SanityDocument) => (
-                  <BlogCard article={e} key={e.id} />
+                  <BlogCard article={e} key={e._id} />
                 ))}
               </div>
             </div>

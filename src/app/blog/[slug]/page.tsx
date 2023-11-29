@@ -6,6 +6,7 @@ import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { bricolage } from "@/styles/fonts";
 import BlogCard from "@/components/blog/blog-card";
+import { RichTextComponents } from "@/components/sanity/rich-text-components";
 const articlesSlug = groq`
   *[_type == "article"]{
     slug
@@ -103,12 +104,17 @@ export default async function BlogSlug({ params: { slug } }: any) {
             </div>
           </div>
           <div className="flex max-w-xl flex-col gap-y-4 px-2">
-            {article?.body ? <PortableText value={article.body} /> : null}
+            {article?.body ? (
+              <PortableText
+                value={article.body}
+                components={RichTextComponents}
+              />
+            ) : null}
           </div>
           <div className="mx-auto overflow-hidden px-5 pb-[20px] pt-80 md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
             <div className="flex flex-col gap-y-5 lg:flex-row lg:gap-x-5">
-              {moreArticles.map((e: any, i: number) => (
-                <BlogCard article={e} />
+              {moreArticles.map((e: SanityDocument) => (
+                <BlogCard article={e} key={e._id} />
               ))}
             </div>
           </div>

@@ -111,8 +111,8 @@ export default async function BlogSlug({ params: { slug } }: any) {
           </div>
           <div className="mx-auto overflow-hidden px-5 pb-[20px] pt-80 md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
             <div className="flex flex-col gap-y-5 lg:flex-row lg:gap-x-5">
-              {moreAttractions.map((e: any, i: number) => (
-                <BlogCard article={e} key={i} />
+              {moreAttractions.map((e: SanityDocument) => (
+                <BlogCard article={e} key={e._id} />
               ))}
             </div>
           </div>

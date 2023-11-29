@@ -29,7 +29,7 @@ export const dynamicParams = false;
 export default async function CategoryPage({ params }: { params: any }) {
   const articles: SanityDocument = await getArticles(params.category);
   const cats = await getCats();
-  console.log(cats);
+  // console.log(cats);
   return (
     <div className="pt-14 md:pt-[65px] lg:md:pt-[164px]">
       <div className="mx-auto px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
@@ -64,7 +64,7 @@ export default async function CategoryPage({ params }: { params: any }) {
           <div className="">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {articles.map((e: SanityDocument) => (
-                <BlogCard article={e} key={e.id} />
+                <BlogCard article={e} key={e._id} />
               ))}
             </div>
           </div>

@@ -112,7 +112,7 @@ export default async function Home() {
         <div className="mx-auto overflow-hidden px-5 pb-[20px] md:max-w-[83%] md:pb-[30px] lg:max-w-[1220px]">
           <div className="grid grid-cols-2 gap-x-5 gap-y-5 lg:grid-cols-4">
             {articles.slice(0, 4).map((e: SanityDocument) => (
-              <BlogCard article={e} key={e.id} />
+              <BlogCard article={e} key={e._id} />
             ))}
           </div>
         </div>
