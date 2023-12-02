@@ -57,7 +57,10 @@ const components: { title: string; href: string; description: string }[] = [
 export function Navigation() {
   return (
     <div className="top fixed z-[100] flex h-14 w-full flex-col border-b border-zinc-300 bg-white md:h-[65px] lg:h-[75px]">
-      <div className="flex h-full items-center justify-center">
+      <div className="mx-auto flex h-full w-full max-w-[1220px] items-center justify-between">
+        <Link href="/" className="text-3xl font-black">
+          <span className="text-orange-600">Vista</span>Boston
+        </Link>
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
